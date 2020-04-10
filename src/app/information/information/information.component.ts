@@ -75,7 +75,11 @@ export class InformationComponent implements OnInit {
       (x) => {
         console.log('save user success ', x);
         this.isRegistering = false;
-        this.router.navigate(['/prompt']);
+        if (profile.userId) {
+          this.router.navigate(['/dashboard']);
+        } else {
+          this.router.navigate(['/prompt']);
+        }
       },
       (error) => {
         this.isRegistering = false;
