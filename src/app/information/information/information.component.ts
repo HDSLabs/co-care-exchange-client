@@ -5,7 +5,6 @@ import { AuthenticationService } from '../../core/services/cce/authentication.se
 import { UserService } from '../../core/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileInformation } from '../models/info-create.model';
-// import { OrganizationService } from '../../core/services/organization.service'
 
 @Component({
   selector: 'app-register',
@@ -19,7 +18,6 @@ export class InformationComponent implements OnInit {
   organizationId = null;
   error = false;
   profile = null;
-  // userOrganization = null;
 
   isRegistering = false;
 
@@ -29,13 +27,12 @@ export class InformationComponent implements OnInit {
     private router: Router,
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    // private organizationService: OrganizationService,
     private toastrService: ToastrService
   ) { }
 
 
   async ngOnInit() {
-    this.profile = await this.userService.getUser(this.email).pipe(first()).toPromise();
+    this.profile = await this.userService.getCurrentUserProfile();
 
     this.route.queryParams.subscribe((val) => {
       console.log('DEBUG info newuser, org ', val);
@@ -68,7 +65,6 @@ export class InformationComponent implements OnInit {
   onInfoSubmit(payload: UserProfileInformation) {
     console.log('DEBUG create user profile ', payload);
     this.isRegistering = true;
-    // WIP --save profile
     const profile = payload.userInput;
     console.log('DEBUG profile to save ', profile);
     this.userService.saveUser(profile).subscribe(
