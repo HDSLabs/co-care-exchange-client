@@ -118,7 +118,7 @@ export class UserService {
         map((response: any) => {
           console.log('DEBUG CREATE USER DATA ', response);
           const data = response.data;
-          this.currentUserProfile = data.createUser && data.createUser.user ? data.createUser.user : null;
+          this.currentUserProfile = data.saveUser && data.saveUser.user ? data.saveUser.user : null;
           this.authService.saveUserProfile(this.currentUserProfile);
           return this.currentUserProfile;
         })
