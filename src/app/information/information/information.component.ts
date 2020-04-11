@@ -72,8 +72,9 @@ export class InformationComponent implements OnInit {
         console.log('save user success ', x);
         const user = this.userService.getUser(profile.emailAddress).pipe(first()).toPromise();
         this.userService.getUser(profile.emailAddress).subscribe(user => {
+          console.log('onInfoSubmit save results', user);
           this.isRegistering = false;
-          if (user.id) {
+          if (profile.userId) {
             this.router.navigate(['/dashboard']);
           } else {
             this.router.navigate(['/prompt']);
