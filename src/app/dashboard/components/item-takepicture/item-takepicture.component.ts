@@ -1,139 +1,115 @@
-import { Component, OnInit, Renderer2, ViewChild, ElementRef, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Storage } from 'aws-amplify';
 import { Agreement } from '../models/agreement';
 import { UserProfile } from 'src/app/models/UserProfile';
 import { UserService } from 'src/app/core/services/user.service';
 
-const customPrefix = {      
-    public: 'private/userid/shareid',      
-    protected: '{{USER_ID}}/',      
-    private: '{{USER_ID}}/'    
-}; 
+const customPrefix = {
+  public: 'private/userid/shareid',
+  protected: '{{USER_ID}}/',
+  private: '{{USER_ID}}/',
+};
 
 @Component({
-    selector: 'app-item-takepicture',
-    templateUrl: './item-takepicture.component.html',
-    styleUrls: ['./item-takepicture.component.scss']
-  })
-  export class ItemTakePictureComponent implements OnInit, OnDestroy {
-    @Input() agreement: Agreement;
-    @Input() imagename: string;
-    @Input() showImageArea: boolean;
-    
-    @Output() picturetakenEvent = new EventEmitter();
+  selector: 'app-item-takepicture',
+  templateUrl: './item-takepicture.component.html',
+  styleUrls: ['./item-takepicture.component.scss'],
+})
+export class ItemTakePictureComponent implements OnInit {
+  @Input() agreement: Agreement;
+  @Input() imagename: string;
+  @Input() showImageArea: boolean;
 
-    private videoElement: ElementRef;
-    @ViewChild('video', { static: false }) set content1(content: ElementRef) {
-        if(content) { // initially setter gets called with undefined
-            this.videoElement = content;
-        }
+  @Output() picturetakenEvent = new EventEmitter();
+
+  private fileInput: HTMLInputElement;
+  @ViewChild('fileInput', { static: false }) set content3(content: HTMLInputElement) {
+    if (content) {
+      // initially setter gets called with undefined
+      this.fileInput = content;
     }
+  }
 
-    private canvasElement: ElementRef;
-    @ViewChild('canvas', { static: false }) set content2(content: ElementRef) {
-        if(content) { // initially setter gets called with undefined
-            this.canvasElement = content;
-        }
-    }    
-    
-    videoWidth = 0;
-    videoHeight = 0;
-    constraints = {
-      video: {
-          facingMode: "environment",
-          width: { ideal: 200 },
-          height: { ideal: 200 }
-      }
+  viewState: 'init' | 'preview' | 'posting' = 'init';
+  userProfile: UserProfile;
+  imgSrc = '';
+
+  constructor(private userService: UserService, private cd: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.userProfile = this.userService.getCurrentUserProfile();
+    customPrefix.public = 'public/' + this.userProfile.id + '/' + this.agreement.shareId + '/';
+  }
+
+  get showUpload() {
+    switch (this.viewState) {
+      case 'posting':
+        return false;
+    }
+    return true;
+  }
+
+  get showPreview() {
+    switch (this.viewState) {
+      case 'preview':
+        return true;
+    }
+    return false;
+  }
+
+  loadpicture({ target }: Event & { target: HTMLInputElement }) {
+    this.imgSrc = '';
+    const file = target.files[0];
+    this.viewState = 'preview';
+
+    const reader = new FileReader();
+    reader.onload = e => {
+      this.imgSrc = (<FileReader>e.target).result as string;
+      this.viewState = 'preview';
+      this.cd.detectChanges();
     };
+    reader.readAsDataURL(file); // convert to base64 string
+  }
 
-    hideVid: boolean = false;
-    hidePic: boolean = true;
-    showCaptureBtn: boolean = true;
-    showRetakeBtn: boolean = false;
-    userProfile: UserProfile;
-        
-    constructor(private renderer: Renderer2, private userService: UserService) { 
-        
+  clearFile() {
+    // this covers a tricky edge case where a user:
+    // 1. selects a file
+    // 2. selects the capture button, clearing the loaded file img src
+    // 3. selects the _same_ file
+    //
+    // in that event, the `onchange` event doesn't fire,
+    // so we clear the image file on click
+    this.fileInput.value = '';
+  }
+
+  get showAccept() {
+    switch (this.viewState) {
+      case 'preview':
+        return true;
     }
+    return false;
+  }
 
-    ngOnInit(){
-        this.startCamera();
-        this.userProfile = this.userService.getCurrentUserProfile();
-        customPrefix.public = 'public/' + this.userProfile.id + '/' + this.agreement.shareId + '/' ;
-    }    
+  acceptimage() {
+    this.viewState = 'posting';
+    console.log(`the image (${this.imagename}):`, this.imgSrc);
 
-    ngOnDestroy(){
-        this.stopCamera();
-    }
-    
-    captureimage(){
-        this.hideVid = true;
-        this.hidePic = false;
-        this.showCaptureBtn = false;
-        this.showRetakeBtn = true;
-        setTimeout(()=> {//NOTE: this just needs a moment to show the div
-            this.renderer.setProperty(this.canvasElement.nativeElement, 'width', this.videoWidth);
-            this.renderer.setProperty(this.canvasElement.nativeElement, 'height', this.videoHeight);
-            this.canvasElement.nativeElement.getContext('2d').drawImage(this.videoElement.nativeElement, 0, 0);
-        }, 500);      
-        
-        console.log('agreement', this.agreement);
-    }
-
-    retakepicture(){
-        this.startCamera();
-        this.hideVid = false;
-        this.hidePic = true;
-        this.showCaptureBtn = true;
-        this.showRetakeBtn = false;
-    }
-
-    acceptimage(){
-        console.log('the image', this.canvasElement.nativeElement.toDataURL("image/svg"));        
-        
-        Storage.put(this.imagename, this.canvasElement.nativeElement.toDataURL("image/svg"),{      
-            progressCallback(progress) {        
-                 console.log('Uploaded : ', progress);      
-            },      
-            contentType: 'image/png',      
-            customPrefix: customPrefix // For Customize path    
-        }).then((result: any) => {      
-                console.log('Success =>', result);   
-                this.showImageArea = false;
-                this.picturetakenEvent.emit(this.showImageArea);  
-                this.stopCamera(); 
-        }).catch((err) => {      
-                console.log('error =>', err); 
-        });
-    }
-
-    startCamera() {
-        if (!!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)) {
-            navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
-        } else {
-            alert('Sorry, camera not available.');
-        }
-    }
-
-    attachVideo(stream) {
-        this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
-        this.renderer.listen(this.videoElement.nativeElement, 'play', (event) => {
-            this.videoHeight = this.videoElement.nativeElement.videoHeight;
-            this.videoWidth = this.videoElement.nativeElement.videoWidth;
-        });
-    }
-
-    handleError(error) {
-        console.log('Error: ', error);
-    }  
-
-    stopCamera(){
-        let videoElem = this.videoElement.nativeElement.srcObject;
-        let tracks = videoElem.getTracks();
-        tracks.forEach(function(track) {
-            track.stop();
-          });
-        
-          videoElem.srcObject = null;
-    }
+    Storage.put(this.imagename, this.imgSrc, {
+      progressCallback(progress: number) {
+        console.log('Uploaded : ', progress);
+      },
+      contentType: 'image/png',
+      customPrefix: customPrefix, // For Customize path
+    })
+      .then((result: any) => {
+        console.log('Success =>', result);
+        this.showImageArea = false;
+        this.viewState = 'init';
+        this.picturetakenEvent.emit(this.showImageArea);
+      })
+      .catch(err => {
+        console.log('error =>', err);
+        this.viewState = 'init';
+      });
+  }
 }

@@ -1,12 +1,23 @@
-<div class="imagearea">
-    <div class="videoarea">  
-        <video class="imagebox" #video autoplay *ngIf="!hideVid"></video>        
-        <canvas class="imagebox" #canvas *ngIf="!hidePic"></canvas>        
-    </div>
+<div class="imagearea" fxLayout="column">
+  <div class="videoarea">
+    <img class="imagebox" *ngIf="showPreview" [src]="imgSrc" />
+  </div>
 
-    <div>        
-        <mat-icon class="iconcolor iconretakepic" (click)="retakepicture()" *ngIf="showRetakeBtn">flip_camera_ios</mat-icon>
-        <mat-icon class="iconcolor icontakepic" (click)="captureimage()" *ngIf="showCaptureBtn">camera</mat-icon>
-        <mat-icon class="accepticon" (click)="acceptimage()" *ngIf="showRetakeBtn">check_circle</mat-icon>  
-    </div>  
+  <div data-picture-actions fxLayout="row" fxLayoutAlign="center center" data-photo-actions>
+    <label *ngIf="showUpload; else fakeUpload" data-upload-photo="">
+      <mat-icon class="iconcolor">insert_photo</mat-icon>
+      <input #fileInput type="file" accept="image/*.png,.jpg,.jpeg;capture=camera" (click)="clearFile()" (change)="loadpicture($event)" />
+    </label>
+    <ng-template #fakeUpload>
+      <button class="cameraicon iconcolor" [disabled]="!showUpload">
+        <mat-icon>insert_photo</mat-icon>
+      </button>
+    </ng-template>
+
+    <button class="accepticon" (click)="acceptimage()" [disabled]="!showAccept">
+      <mat-icon>check_circle</mat-icon>
+    </button>
+  </div>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="viewState === 'posting'"></mat-progress-bar>
 </div>

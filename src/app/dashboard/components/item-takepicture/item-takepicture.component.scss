@@ -1,34 +1,65 @@
-.iconcolor{
-    color:black;
-    font-size: 50px;
+.iconcolor {
+  color: black;
+
+  svg {
+    fill: black;
+  }
 }
 
-.iconretakepic{
-    margin-left: 10px;
+.iconretakepic {
+  margin-right: auto;
 }
 
-.icontakepic{
-    margin-left: 90px;
+.accepticon {
+  color: green;
+  margin-left: auto;
+  svg {
+    fill: green;
+  }
 }
 
-.accepticon{
-    color:green;
-    margin-left: 130px;
-    font-size: 50px;
+.imagebox {
+  border-radius: 10px;
 }
 
-.imagebox{
-    margin-left: 13px;
-    border-radius: 10px;
+.imagearea {
+  background-color: lightgrey;
+  border-radius: 10px;
+  margin: 0 auto;
+  width: 100%;
+
+  [data-picture-actions] {
+    padding: 0.5rem;
+    button {
+      outline: none;
+      border: none;
+      background: none;
+      &:disabled {
+        opacity: 0.25;
+      }
+    }
+    .mat-icon {
+      font-size: 50px;
+      width: auto;
+      height: auto;
+    }
+
+    [data-upload-photo] {
+      margin-right: 0.5rem;
+    }
+
+    input[type='file'] {
+      width: 0;
+      overflow: hidden;
+    }
+  }
 }
 
-.imagearea{
-    background-color: lightgrey;
-    border-radius: 10px;
-    margin-left: 50px;
-    margin-right: 50px;
-}
-
-.videoarea{
-    padding-top: 10px;
+.videoarea {
+  padding: 0.5rem;
+  img,
+  video {
+    width: 100%;
+    height: auto;
+  }
 }
