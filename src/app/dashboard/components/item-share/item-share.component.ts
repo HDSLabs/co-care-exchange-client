@@ -60,10 +60,10 @@ export class ItemShareComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(400),
         distinctUntilChanged(),
-        filter((val) => val && val !== ''),
+        filter(val => val && val !== ''),
         takeUntil(this.stop$)
       )
-      .subscribe((val) => (this.currentNoteVal = val));
+      .subscribe(val => (this.currentNoteVal = val));
 
     // // confirm match
     // if (this.vm.itemDetails && this.vm.itemDetails.status === Status.NewMatchFound) {
@@ -126,7 +126,7 @@ export class ItemShareComponent implements OnInit, OnDestroy {
   //       reason: 'Sharer confirmed the delivery of the items',
   //     },
   //   });
-  // } 
+  // }
 
   onConfirmFulfillemnt(agreement: Agreement) {
     this.updateItem.emit({
@@ -139,7 +139,7 @@ export class ItemShareComponent implements OnInit, OnDestroy {
     });
   }
 
-  onConfirmMatch(){    
+  onConfirmMatch() {
     this.updateItem.emit({
       orderUpdate: this.vm.itemDetails,
       updates: {
@@ -157,7 +157,7 @@ export class ItemShareComponent implements OnInit, OnDestroy {
   // TODO: this should be a routerLink in the view. Temp work around to move this story forward due to inability to toggle disabled state
   navigateBackToDashboard() {
     //if (!this.modalVisible) {
-      this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']);
     //} else {
     //  return false;
     //}

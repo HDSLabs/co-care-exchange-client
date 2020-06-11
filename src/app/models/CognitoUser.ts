@@ -19,7 +19,7 @@ export class CognitoUser {
       return;
     }
     const self = this;
-    Object.keys(data).forEach(function (key) {
+    Object.keys(data).forEach(function(key) {
       self[key] = data[key];
     });
   }

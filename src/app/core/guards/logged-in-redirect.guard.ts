@@ -20,7 +20,7 @@ export class LoggedInRedirectGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return this.authenticationService.isLoggedIn$.pipe(
       take(1),
-      map((x) => {
+      map(x => {
         const user = this.authenticationService.getUser();
         if (!user || !user.userProfile) {
           console.log('DEBUG user logged in, but is not valid ', user);

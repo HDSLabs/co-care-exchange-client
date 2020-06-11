@@ -8,7 +8,7 @@ import { DASHBOARD_ROUTE, INFO_ROUTE, PROMPT_ROUTE } from '../core/constants/rou
   styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent implements OnInit {
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
   ngOnInit() {
     window.scrollTo(0, 0);
   }

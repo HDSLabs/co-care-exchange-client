@@ -36,7 +36,7 @@ export class SignInComponent implements OnInit {
       username: ['', Validators.required],
       password: ['', Validators.required],
     });
-    this.route.queryParams.subscribe((val) => {
+    this.route.queryParams.subscribe(val => {
       console.log('DEBUG signin email ', val);
       const email = val.email;
       if (email) {
@@ -80,7 +80,10 @@ export class SignInComponent implements OnInit {
   private async navigateToNextRoute(username: string, org?: any) {
     // TODO -- check if user profile exists
     const self = this;
-    const user = await self.userService.getUser(username).pipe(first()).toPromise();
+    const user = await self.userService
+      .getUser(username)
+      .pipe(first())
+      .toPromise();
     console.log('signin navigateToNextRoute - user profile ', user);
 
     // TODO -- also check if user is part of an org if they signed in with an org?

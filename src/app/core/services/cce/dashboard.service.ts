@@ -31,7 +31,7 @@ export class DashboardService {
     needs: [],
     shares: [],
     loading: true,
-    filterState: 'myItems'
+    filterState: 'myItems',
   };
 
   private _state = new BehaviorSubject<IDashboardState>(this.state);
@@ -40,24 +40,18 @@ export class DashboardService {
   private doPoll$ = new BehaviorSubject<boolean>(false);
   private isOnline$ = merge(of(null), fromEvent(window, 'online'), fromEvent(window, 'offline')).pipe(map(() => navigator.onLine));
   private userProfile$: Observable<UserProfile> = this.authService.auth$.pipe(
-    filter((authState) => authState.user && authState.user.userProfile),
-    map((authState) => authState.user.userProfile)
+    filter(authState => authState.user && authState.user.userProfile),
+    map(authState => authState.user.userProfile)
   );
 
-  private orgId$: Observable<string> = this.userProfile$
-    .pipe(
-      filter(userProfile => !!userProfile && !!userProfile.organization && !!userProfile.organization.id),
-      map(userProfile => userProfile.organization.id),
-    );
+  private orgId$: Observable<string> = this.userProfile$.pipe(
+    filter(userProfile => !!userProfile && !!userProfile.organization && !!userProfile.organization.id),
+    map(userProfile => userProfile.organization.id)
+  );
 
   private filter$ = new BehaviorSubject<string>(this.state.filterState);
 
-  private dashboardInputs$ = combineLatest([
-    this.doPoll$,
-    this.isOnline$,
-    this.userProfile$,
-    this.filter$
-  ]);
+  private dashboardInputs$ = combineLatest([this.doPoll$, this.isOnline$, this.userProfile$, this.filter$]);
 
   constructor(
     private http: HttpClient,
@@ -67,12 +61,15 @@ export class DashboardService {
   ) {
     // query the dashboard every 5 seconds if the dashboard component is
     // alive and if the client has internet connectivity
-    this.dashboardInputs$.pipe(
-      switchMap(([doPoll, isOnline, userProfile, filterCriteria]) => {
-        return (isOnline && doPoll && userProfile) ? this.pollDashboard(userProfile.id, filterCriteria) : EMPTY.pipe(finalize(() => this.updateDashboard({ loading: false })));
-      })
-    )
-      .subscribe((dashboardData) => {
+    this.dashboardInputs$
+      .pipe(
+        switchMap(([doPoll, isOnline, userProfile, filterCriteria]) => {
+          return isOnline && doPoll && userProfile
+            ? this.pollDashboard(userProfile.id, filterCriteria)
+            : EMPTY.pipe(finalize(() => this.updateDashboard({ loading: false })));
+        })
+      )
+      .subscribe(dashboardData => {
         const { requested, shared } = dashboardData;
         this.updateDashboard({ needs: requested, shares: shared, loading: false });
       });
@@ -86,20 +83,19 @@ export class DashboardService {
 
   dashboardHandler(userProfileId: string, filterCriteria: string) {
     const formattedFilter = filterCriteria === 'showAllOrganization' ? filterCriteria : null;
-    return this.getDashboard(userProfileId, formattedFilter)
-      .pipe(
-        map((data: any) => {
-          if (data && data.errors) {
-            const messages = data.errors.map((e) => e.message).join(', ');
-            throw new Error(messages);
-          }
-          return data.data.dashboard;
-        }),
-        catchError((error: any) => {
-          console.error('an error occurred querying the dashboard: ', error.message);
-          return of(this._state); // serve a cached version on error
-        })
-      );
+    return this.getDashboard(userProfileId, formattedFilter).pipe(
+      map((data: any) => {
+        if (data && data.errors) {
+          const messages = data.errors.map(e => e.message).join(', ');
+          throw new Error(messages);
+        }
+        return data.data.dashboard;
+      }),
+      catchError((error: any) => {
+        console.error('an error occurred querying the dashboard: ', error.message);
+        return of(this._state); // serve a cached version on error
+      })
+    );
   }
 
   startPolling() {
@@ -142,7 +138,7 @@ export class DashboardService {
     }`,
       variables: {
         userId: userId,
-        filterOption
+        filterOption,
       },
     };
     return this.http.post<any>(`${environment.serverUrl}`, query);
@@ -162,18 +158,24 @@ export class DashboardService {
 
   archiveItem(itemId: string) {
     return this.userProfile$.pipe(
-      exhaustMap(profile => this.apollo.mutate({
-        mutation: ArchiveItem,
-        variables: {
-          input: {
-            itemId,
-            userId: profile.id,
-            clientMutationId: '3455555'
-          }
-        }
-      }).pipe(map((response: any) => {
-        console.log('archiveItem', response);
-      })))
+      exhaustMap(profile =>
+        this.apollo
+          .mutate({
+            mutation: ArchiveItem,
+            variables: {
+              input: {
+                itemId,
+                userId: profile.id,
+                clientMutationId: '3455555',
+              },
+            },
+          })
+          .pipe(
+            map((response: any) => {
+              console.log('archiveItem', response);
+            })
+          )
+      )
     );
   }
 

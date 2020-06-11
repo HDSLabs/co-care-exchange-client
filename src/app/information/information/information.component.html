@@ -1,38 +1,33 @@
 <app-site-header></app-site-header>
 
 <!-- <section class="section"> -->
-  <div class="container">
-    <!-- <div fxLayout="row" fxLayoutAlign="center center">
+<div class="container">
+  <!-- <div fxLayout="row" fxLayoutAlign="center center">
       <img src="assets/cce-logo.svg" />
     </div> -->
-    <div class="vertical-rhythm" fxLayout="column" fxLayoutAlign="center center">
-      <div fxLayout="column">
-        <h3 class="text-primary text-center">
-          We just need a little bit more<br />
-          information...
-        </h3>
-      </div>
+  <div class="vertical-rhythm" fxLayout="column" fxLayoutAlign="center center">
+    <div fxLayout="column">
+      <h3 class="text-primary text-center">
+        We just need a little bit more<br />
+        information...
+      </h3>
+    </div>
 
-      <div *ngIf="registrantType === 'Individual'" class="w-100 vertical-rhythm">
-        <app-individual 
-          [email]="email" 
-          [lastName]="lastName" 
-          [firstName]="firstName" 
-          (infoSubmit)="onInfoSubmit($event)">
-        </app-individual>
-      </div>
+    <div *ngIf="registrantType === 'Individual'" class="w-100 vertical-rhythm">
+      <app-individual [email]="email" [lastName]="lastName" [firstName]="firstName" (infoSubmit)="onInfoSubmit($event)"> </app-individual>
+    </div>
 
-      <div *ngIf="registrantType === 'Organization'" class="w-100 vertical-rhythm">
-        <app-organization
-          [email]="email"
-          [lastName]="lastName"
-          [firstName]="firstName"
-          [organizationName]="organizationName"
-          [organizationId]="organizationId"
-          [isRegistering]="isRegistering"
-          (infoSubmit)="onInfoSubmit($event)"
-        ></app-organization>
-      </div>
+    <div *ngIf="registrantType === 'Organization'" class="w-100 vertical-rhythm">
+      <app-organization
+        [email]="email"
+        [lastName]="lastName"
+        [firstName]="firstName"
+        [organizationName]="organizationName"
+        [organizationId]="organizationId"
+        [isRegistering]="isRegistering"
+        (infoSubmit)="onInfoSubmit($event)"
+      ></app-organization>
     </div>
   </div>
+</div>
 <!-- </section> -->

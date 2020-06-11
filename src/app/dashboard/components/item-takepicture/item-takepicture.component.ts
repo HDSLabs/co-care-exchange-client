@@ -98,7 +98,7 @@ export class ItemTakePictureComponent implements OnInit, OnDestroy {
     this.viewState = 'uploadPreview';
 
     const reader = new FileReader();
-    reader.onload = (e) => {
+    reader.onload = e => {
       this.imgSrc = (<FileReader>e.target).result as string;
       this.viewState = 'uploadPreview';
       this.cd.detectChanges();
@@ -174,7 +174,7 @@ export class ItemTakePictureComponent implements OnInit, OnDestroy {
         this.picturetakenEvent.emit(this.showImageArea);
         this.stopCamera();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log('error =>', err);
         this.viewState = 'capture';
       });
@@ -185,7 +185,10 @@ export class ItemTakePictureComponent implements OnInit, OnDestroy {
   }
   startCamera() {
     if (this.canUseCamera) {
-      navigator.mediaDevices.getUserMedia(this.constraints).then(this.attachVideo.bind(this)).catch(this.handleError);
+      navigator.mediaDevices
+        .getUserMedia(this.constraints)
+        .then(this.attachVideo.bind(this))
+        .catch(this.handleError);
     } else {
       alert('Sorry, camera not available.');
     }
@@ -193,7 +196,7 @@ export class ItemTakePictureComponent implements OnInit, OnDestroy {
 
   attachVideo(stream) {
     this.renderer.setProperty(this.videoElement.nativeElement, 'srcObject', stream);
-    this.renderer.listen(this.videoElement.nativeElement, 'play', (event) => {
+    this.renderer.listen(this.videoElement.nativeElement, 'play', event => {
       this.videoHeight = this.videoElement.nativeElement.videoHeight;
       this.videoWidth = this.videoElement.nativeElement.videoWidth;
     });
@@ -206,7 +209,7 @@ export class ItemTakePictureComponent implements OnInit, OnDestroy {
   stopCamera() {
     const videoElem = this.videoElement.nativeElement.srcObject;
     const tracks = videoElem.getTracks();
-    tracks.forEach(function (track) {
+    tracks.forEach(function(track) {
       track.stop();
     });
 

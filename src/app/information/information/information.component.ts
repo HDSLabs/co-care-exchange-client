@@ -31,12 +31,15 @@ export class InformationComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    this.route.data.pipe(filter((data) => data.user)).subscribe((data) => {
+    this.route.data.pipe(filter(data => data.user)).subscribe(data => {
       // TBD -- prob not needed, but stubbed out jic
       console.log('DEBUG info data :', data);
     });
 
-    this.profile = await this.userService.getUser(this.email).pipe(first()).toPromise();
+    this.profile = await this.userService
+      .getUser(this.email)
+      .pipe(first())
+      .toPromise();
     this.registrantType = 'Individual';
 
     if (this.profile) {
@@ -68,7 +71,6 @@ export class InformationComponent implements OnInit {
     console.log('DEBUG create user profile ', payload);
     payload.userInput.matchRadius = payload.userInput.dropOffRadius;
     payload.userInput.sendEmailMessageNotifications = payload.userInput.sendEmailMatchNotifications;
-    
 
     this.isRegistering = true;
     const profile = payload.userInput;
@@ -77,7 +79,7 @@ export class InformationComponent implements OnInit {
       .saveUser(profile)
       .pipe(finalize(() => (this.isRegistering = false)))
       .subscribe(
-        (savedProfile) => {
+        savedProfile => {
           if (savedProfile) {
             console.log('save user success ', savedProfile);
             // this checks for existing profile, if so, it has a user id
@@ -94,7 +96,7 @@ export class InformationComponent implements OnInit {
             });
           }
         },
-        (error) => {
+        error => {
           console.error('Save user error ', error);
           this.toastrService.error('Unable to save profile. Please try again later', null, { positionClass: 'toast-top-center' });
         }

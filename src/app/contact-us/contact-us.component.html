@@ -1,33 +1,28 @@
 <section class="vertical-rhythm-two" fxLayout="column">
-
   <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-
     <mat-card class="box">
       <mat-card-header>
         <div fxLayout="column">
           <a routerLink="/">
-            <img style="width: 50%; margin: auto" #image
-                 src="assets/cce-logo.svg"/>
+            <img style="width: 50%; margin: auto" #image src="assets/cce-logo.svg" />
           </a>
           <mat-card-title>Contact Us</mat-card-title>
         </div>
-
       </mat-card-header>
 
       <form [formGroup]="contactForm" class="login-form">
         <mat-card-content>
-
           <div *ngIf="success === false">
             <mat-form-field class="login-full-width">
-              <input required matInput placeholder="Name" formControlName="name" type="text">
+              <input required matInput placeholder="Name" formControlName="name" type="text" />
             </mat-form-field>
 
             <mat-form-field class="login-full-width">
-              <input required matInput placeholder="Email Address" formControlName="email" type="text">
+              <input required matInput placeholder="Email Address" formControlName="email" type="text" />
             </mat-form-field>
 
             <mat-form-field class="login-full-width">
-              <input required matInput placeholder="Subject" formControlName="subject" type="text">
+              <input required matInput placeholder="Subject" formControlName="subject" type="text" />
             </mat-form-field>
 
             <mat-form-field class="login-full-width">
@@ -38,10 +33,10 @@
               <p>There was an error sending your message please try again.</p>
             </mat-error>
 
-            <button mat-stroked-button color="accent" class="btn-block" (click)="sendEmail()" >Submit</button>
+            <button mat-stroked-button color="accent" class="btn-block" (click)="sendEmail()">Submit</button>
           </div>
 
-          <div *ngIf="success !== null && success===true">
+          <div *ngIf="success !== null && success === true">
             <p class="message">
               Thank you for contacting us.
             </p>
@@ -49,9 +44,6 @@
           </div>
         </mat-card-content>
       </form>
-
-
     </mat-card>
   </div>
 </section>
-

@@ -14,7 +14,7 @@ const Organizations = gql`
 `;
 
 const UserOrganization = gql`
-  query getUserOrganization($id: ID!){
+  query getUserOrganization($id: ID!) {
     organizations(where: { id: $id }) {
       id
       name
@@ -76,12 +76,12 @@ export class OrganizationService {
     // TODO consolidate with some inner observable magic
     if (!this.organizations) {
       return this.getOrganizations$().pipe(
-        map((allOrgs) => {
-          return allOrgs.filter((ao) => orgs.includes(ao.name));
+        map(allOrgs => {
+          return allOrgs.filter(ao => orgs.includes(ao.name));
         })
       );
     }
-    const filtered = this.organizations.filter((ao) => {
+    const filtered = this.organizations.filter(ao => {
       return orgs.includes(ao.name);
     });
     return of(filtered);

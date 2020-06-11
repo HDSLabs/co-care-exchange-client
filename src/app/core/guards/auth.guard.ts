@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
     } catch (e) {}
     return this.authenticationService.isLoggedIn$.pipe(
       take(1),
-      map((loggedIn) => {
+      map(loggedIn => {
         // WIP: need to resolve user profile and then observable before we continue
         // const user = this.authenticationService.getUser();
         // may need to move allowNoProfile to a resolver that attempt to get the userProfile if it DNE

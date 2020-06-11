@@ -28,15 +28,15 @@ export class AuthenticationService {
   private user$ = this.userSubject.pipe(share());
 
   readonly isLoggedIn$ = this.auth$.pipe(
-    filter((x) => !!x),
-    map((state) => state.isLoggedIn)
+    filter(x => !!x),
+    map(state => state.isLoggedIn)
   );
 
   private user: any;
   signedIn = false;
   authState = null;
   constructor(private router: Router, private http: HttpClient, private amplifyService: AmplifyService) {
-    this.amplifyService.authStateChange$.subscribe((authState) => {
+    this.amplifyService.authStateChange$.subscribe(authState => {
       console.log('DEBUG authState ', authState);
       console.log('DEBUG authState.state ', authState.state);
       const signedOut = this.authState === 'signedOut';

@@ -1,5 +1,4 @@
 export interface Prompt {
-
   // Uniquely identifies this instance
   id: string;
 

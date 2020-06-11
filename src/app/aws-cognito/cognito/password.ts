@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 
-export const forgetPassword = async (username) => {
+export const forgetPassword = async username => {
   return await Auth.forgotPassword(username);
 };
 

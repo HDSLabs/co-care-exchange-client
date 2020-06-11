@@ -12,7 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
-      catchError((err) => {
+      catchError(err => {
         const error = err.error.message || err.statusText;
         if (err.status === 0) {
           this.toastrService.error('ColoradoCareExchange services are not responding.  Please try again later.', null, {

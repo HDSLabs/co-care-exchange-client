@@ -31,21 +31,27 @@ interface IDashboardViewModel {
   styleUrls: ['./dashboard.component.scss'],
   animations: [
     trigger('rowAnimate', [
-      state('rowClosed', style({
-        transform: 'translateX(0)'
-      })),
-      state('rowOpen', style({
-        transform: 'translateX(-75px)'
-      })),
+      state(
+        'rowClosed',
+        style({
+          transform: 'translateX(0)',
+        })
+      ),
+      state(
+        'rowOpen',
+        style({
+          transform: 'translateX(-75px)',
+        })
+      ),
       transition('* => rowClosed', animate('0.25s')),
       transition('* => rowOpen', animate('0.25s')),
-    ])
-  ]
+    ]),
+  ],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   vm$: Observable<IDashboardViewModel>;
   isAlive: boolean;
-  rowState: 'rowOpen'|'rowClosed'|'';
+  rowState: 'rowOpen' | 'rowClosed' | '';
 
   filter = new FormControl('');
   filter$: Observable<string>;
@@ -61,12 +67,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private dashboardService: DashboardService,
     private toastrService: ToastrService,
-    private breakpointObserver: BreakpointObserver,
+    private breakpointObserver: BreakpointObserver
   ) {
-    this.breakpointObserver.observe([Breakpoints.Web])
-      .subscribe(({ matches: isWeb}) => {
-        this.isWeb = isWeb;
-      });
+    this.breakpointObserver.observe([Breakpoints.Web]).subscribe(({ matches: isWeb }) => {
+      this.isWeb = isWeb;
+    });
   }
 
   ngOnInit() {
@@ -79,15 +84,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         return {
           ...dashboardState,
           shares: this.createGroupedEntries(dashboardState.shares),
-          needs: this.createGroupedEntries(dashboardState.needs)
+          needs: this.createGroupedEntries(dashboardState.needs),
         };
       })
     );
 
-    this.filter$ = this.filter.valueChanges.pipe(
-      distinctUntilChanged(),
-      takeUntil(this.destroy$)
-    );
+    this.filter$ = this.filter.valueChanges.pipe(distinctUntilChanged(), takeUntil(this.destroy$));
 
     this.filter$.subscribe(filterValue => {
       this.dashboardService.changeFilterCriteria(filterValue);
@@ -95,17 +97,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   createGroupedEntries(agreements: Agreement[]) {
-    const grouped: {[key: string]: Agreement[]} = groupBy(agreements, 'userDisplayName');
+    const grouped: { [key: string]: Agreement[] } = groupBy(agreements, 'userDisplayName');
     return Object.entries(grouped).map(([name, items]) => {
       return {
         createdBy: name,
-        items
+        items,
       };
     });
   }
 
   formatItemDetails(agreement: Agreement) {
-    return `${agreement.quantity}${agreement.unitOfIssue ? ', ' + agreement.unitOfIssue : ''}${agreement.details ? ', ' + agreement.details : ''}`
+    return `${agreement.quantity}${agreement.unitOfIssue ? ', ' + agreement.unitOfIssue : ''}${
+      agreement.details ? ', ' + agreement.details : ''
+    }`;
   }
 
   deleteItem(event, item: Agreement) {
@@ -113,35 +117,37 @@ export class DashboardComponent implements OnInit, OnDestroy {
     event.stopPropagation();
 
     const ref = this.dialog.open(ConfirmDeleteRequestComponent, {
-        width: '300px',
-        data: item,
-      });
+      width: '300px',
+      data: item,
+    });
 
-      ref
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe((results) => {
-          if (results === 'yep') {
-            this.dashboardService.archiveItem(item.itemId)
-              .pipe(
-                takeUntil(this.destroy$),
-                catchError(this.handleError), 
-                map((response: any) => {
-                  console.log('deleteItem', response);
-                  this.dashboardService.startPolling();
-                })
-              ).subscribe();
-          } else {
-            return;
-          }
-        });
+    ref
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe(results => {
+        if (results === 'yep') {
+          this.dashboardService
+            .archiveItem(item.itemId)
+            .pipe(
+              takeUntil(this.destroy$),
+              catchError(this.handleError),
+              map((response: any) => {
+                console.log('deleteItem', response);
+                this.dashboardService.startPolling();
+              })
+            )
+            .subscribe();
+        } else {
+          return;
+        }
+      });
   }
 
-  toggleRowState(row: Agreement, animationState: 'rowOpen'|'rowClosed'|'') {
+  toggleRowState(row: Agreement, animationState: 'rowOpen' | 'rowClosed' | '') {
     row.rowState = animationState;
     /**
      * dashboard service polling should probably be refactored, but this works around an issue
-     * where the polling will close the row if it is open. This pauses polling while the row 
+     * where the polling will close the row if it is open. This pauses polling while the row
      * is open. polling refactor could entail ability to pause polling and also override it.
      * A request should be able to be made on an event outside of the timer function emitting
      */
@@ -183,7 +189,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private handleError(err) {
     console.error('an error occurred deleting the dashboard item: ', err);
     this.toastrService.error('An unexpected error has occurred deleting the request. Please try again later.', null, {
-      positionClass: 'toast-top-center'
+      positionClass: 'toast-top-center',
     });
     return of(null);
   }
@@ -194,7 +200,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  showTrashClick(show: boolean){
-    this.showTrash = show
+  showTrashClick(show: boolean) {
+    this.showTrash = show;
   }
 }

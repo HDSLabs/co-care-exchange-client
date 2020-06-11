@@ -1,43 +1,37 @@
 <section class="section">
   <div class="container">
     <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-
       <mat-card class="box">
         <mat-card-header>
           <div fxLayout="column">
             <a routerLink="/">
-              <img style="width: 50%; margin: auto" #image
-                   src="assets/cce-logo.svg"/>
+              <img style="width: 50%; margin: auto" #image src="assets/cce-logo.svg" />
             </a>
             <div *ngIf="message.length > 0">
-            <mat-card-title>Account Verified</mat-card-title>
+              <mat-card-title>Account Verified</mat-card-title>
             </div>
 
             <div *ngIf="error.length > 0">
               <mat-card-title>Account Verification Failed</mat-card-title>
             </div>
           </div>
-
         </mat-card-header>
 
         <mat-card-content>
           <div *ngIf="message.length > 0">
             <p class="message">
-              {{message}}
+              {{ message }}
             </p>
             <button mat-stroked-button color="accent" class="btn-block" routerLink="/signIn">Return to Login</button>
           </div>
 
           <div *ngIf="error.length > 0">
-            <p class="message" >
-              {{error}}
+            <p class="message">
+              {{ error }}
             </p>
             <button mat-stroked-button color="accent" class="btn-block" routerLink="/">Home</button>
           </div>
-
         </mat-card-content>
-
-
       </mat-card>
     </div>
   </div>

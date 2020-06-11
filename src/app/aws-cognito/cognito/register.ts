@@ -42,7 +42,7 @@ export const confirm = async (username, code) => {
   }
 };
 
-export const resend = async (username) => {
+export const resend = async username => {
   try {
     const result = await Auth.resendSignUp(username);
   } catch (err) {

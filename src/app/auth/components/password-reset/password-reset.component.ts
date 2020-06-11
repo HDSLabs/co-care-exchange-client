@@ -77,7 +77,7 @@ export class PasswordResetComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe((val) => {
+    this.route.queryParams.subscribe(val => {
       console.log('DEBUG reset email ', val);
       this.email = val.email;
       if (!this.email) {

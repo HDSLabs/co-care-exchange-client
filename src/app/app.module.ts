@@ -65,7 +65,7 @@ import { ServiceWorkerUpdateService } from './core/services/sw-update.service';
     NavbarService,
     ServiceWorkerUpdateService,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   exports: [],
   bootstrap: [AppComponent],

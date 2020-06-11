@@ -53,7 +53,7 @@ export class IndividualComponent implements OnInit, AfterContentInit {
   }
 
   ngOnInit() {
-    this.router.queryParams.subscribe((params) => {
+    this.router.queryParams.subscribe(params => {
       if (params && params.newUser) {
         this.newUser = params.newUser.toLowerCase() === 'true';
       }
@@ -61,7 +61,10 @@ export class IndividualComponent implements OnInit, AfterContentInit {
   }
 
   async ngAfterContentInit() {
-    this.userProfile = await this.userService.getUser(this.email).pipe(first()).toPromise();
+    this.userProfile = await this.userService
+      .getUser(this.email)
+      .pipe(first())
+      .toPromise();
 
     this.individualRegisterForm = this.formBuilder.group({
       firstName: ['', Validators.required],

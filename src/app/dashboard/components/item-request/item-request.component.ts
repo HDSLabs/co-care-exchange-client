@@ -42,10 +42,10 @@ export class ItemRequestComponent implements OnInit, OnDestroy {
       .pipe(
         debounceTime(400),
         distinctUntilChanged(),
-        filter((val) => val && val !== ''),
+        filter(val => val && val !== ''),
         takeUntil(this.stop$)
       )
-      .subscribe((val) => (this.currentNoteVal = val));
+      .subscribe(val => (this.currentNoteVal = val));
   }
 
   ngOnDestroy() {
@@ -59,7 +59,8 @@ export class ItemRequestComponent implements OnInit, OnDestroy {
       updates: {
         requestId: agreement.requestId,
         status: Status.OrderCancelled,
-        reason: 'Requester ' + this.userProfile.firstName + ' ' + this.userProfile.lastName + ' cancelled the match in agreement detail view',
+        reason:
+          'Requester ' + this.userProfile.firstName + ' ' + this.userProfile.lastName + ' cancelled the match in agreement detail view',
       },
     });
   }
