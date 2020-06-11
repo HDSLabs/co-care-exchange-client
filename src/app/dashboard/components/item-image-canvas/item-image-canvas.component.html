@@ -1,1 +1,6 @@
-<canvas class="imagebox" #canvas height="200px" width="200px"></canvas>  
+<img *ngIf="imgSrc" [src]="imgSrc" width="100" height="100" [alt]="viewState === 'error' ? '(unable to load photo)' : 'photo'" />
+
+<span [ngSwitch]="viewState">
+  <mat-progress-bar mode="indeterminate" *ngSwitchCase="'loading'"></mat-progress-bar>
+  <span *ngSwitchCase="'error'">(Error loading photo)</span>
+</span>
