@@ -119,3 +119,17 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
   
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Feature work flow
+
+* Fork the repo if needed (set `upstream` to HDSLabs and `origin` to the fork)
+
+* cut new branch from `master`: `git fetch upstream && git rebase upstream/master && git checkout -b task/<task number>-<task description>`
+* merge branch into `canary`
+* Change task label to `QA`
+* QA team marks `Ready for Acceptance`
+* merge branch into `acceptance`
+* Haile says yep or nope
+* Haile moves it to `Ready for Master` column
+* merge branch into `rc/<current-candidate>` (which was cut from master)
+* merge `rc/<current-candidate>` branch into `master`
