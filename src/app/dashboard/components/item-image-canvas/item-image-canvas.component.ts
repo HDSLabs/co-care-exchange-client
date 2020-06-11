@@ -1,8 +1,6 @@
 import { OnInit, Renderer2, Component, ElementRef, ViewChild, Input } from '@angular/core';
 import { Storage } from 'aws-amplify';
 
-// testing lint-staged-hook (remove)
-
 @Component({
   selector: 'app-item-image-canvas',
   templateUrl: './item-image-canvas.component.html',
