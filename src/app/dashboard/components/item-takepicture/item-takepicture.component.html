@@ -1,14 +1,12 @@
 <div class="imagearea" fxLayout="column">
   <div class="videoarea">
-    <video class="imagebox" #video autoplay *ngIf="showCapture"></video>
-    <canvas class="imagebox" #canvas fxHide></canvas>
-    <img class="imagebox" *ngIf="viewState === 'uploadPreview' || viewState === 'capturePreview'" [src]="imgSrc" />
+    <img class="imagebox" *ngIf="showPreview" [src]="imgSrc" />
   </div>
 
   <div data-picture-actions fxLayout="row" fxLayoutAlign="center center" data-photo-actions>
     <label *ngIf="showUpload; else fakeUpload" data-upload-photo="">
       <mat-icon class="iconcolor">insert_photo</mat-icon>
-      <input #fileInput type="file" accept="image/*;capture=camera" (click)="clearFile()" (change)="loadpicture($event)" />
+      <input #fileInput type="file" accept="image/*.png,.jpg,.jpeg;capture=camera" (click)="clearFile()" (change)="loadpicture($event)" />
     </label>
     <ng-template #fakeUpload>
       <button class="cameraicon iconcolor" [disabled]="!showUpload">
@@ -16,9 +14,6 @@
       </button>
     </ng-template>
 
-    <button class="iconcolor icontakepic" (click)="showRetake ? retakepicture() : captureimage()" [disabled]="!showCapture && !showRetake">
-      <mat-icon>camera</mat-icon>
-    </button>
     <button class="accepticon" (click)="acceptimage()" [disabled]="!showAccept">
       <mat-icon>check_circle</mat-icon>
     </button>
