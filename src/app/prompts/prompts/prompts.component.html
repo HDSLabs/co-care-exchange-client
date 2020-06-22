@@ -1,213 +1,263 @@
+<section class="section questionsection">
+  <mat-icon (click)="onCancelBackToDashboard()" class="leavequestionspage">highlight_off</mat-icon>
 
-<section class="section questionsection" >
-    <mat-icon (click)="onCancelBackToDashboard()" class="leavequestionspage">highlight_off</mat-icon>
+  <div *ngIf="showGroupTypeQuestions">
+    <div *ngFor="let grouptype of promptGroups" class="prompt">
+      <h3 class="category-head text-center">Are you requesting or sharing any {{ grouptype.groupName }}?</h3>
+      <div class="radio-group-container" fxLayout="row" fxLayoutAlign="center center">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="grouptype.showQuestions">
+          <mat-radio-button *ngFor="let rdobtn of groupTypeRdo" [value]="rdobtn.key" [checked]="rdobtn.checked">{{
+            rdobtn.key
+          }}</mat-radio-button>
+        </mat-radio-group>
+      </div>
+    </div>
+  </div>
 
-    <div *ngIf="showGroupTypeQuestions">
-        <div *ngFor="let grouptype of promptGroups" class="prompt">
-            <h3 class="category-head text-center">Are you requesting or sharing any {{grouptype.groupName}}?</h3>
-            <div class="radio-group-container" fxLayout="row" fxLayoutAlign="center center">
-                <mat-radio-group aria-label="Select an option" [(ngModel)]="grouptype.showQuestions">
-                    <mat-radio-button *ngFor="let rdobtn of groupTypeRdo" [value]="rdobtn.key" [checked]="rdobtn.checked">{{rdobtn.key}}</mat-radio-button>
-                </mat-radio-group>
+  <div *ngIf="showMultipleSelect">
+    <table class="tablestyle" *ngFor="let group of multiselectPrompts">
+      <section>
+        <hr />
+        <tr>
+          <td class="tableheader" colspan="2">
+            <h2 class="category-head text-center">{{ group.groupName }}</h2>
+          </td>
+        </tr>
+      </section>
+
+      <section *ngFor="let multiprompt of group.multiprompts">
+        <tr>
+          <td class="tablesidecolumns">
+            &nbsp;
+          </td>
+          <td class="tabledropdownarea">
+            <h4 [ngClass]="multiprompt.removedQuestion ? 'itemremoved' : 'itemnotremoved'">{{ multiprompt.item }}</h4>
+          </td>
+          <td class="tablesidecolumns">
+            &nbsp;
+          </td>
+        </tr>
+        <tr>
+          <td class="tablesidecolumns">
+            &nbsp;
+          </td>
+          <td class="tabledropdownarea">
+            <mat-select
+              fxLayout="column"
+              [(value)]="multiprompt.multiselect"
+              multiple
+              [disabled]="multiprompt.removedQuestion ? true : false"
+              class="selectborder"
+              placeholder="&nbsp;&nbsp;&nbsp;None Selected"
+            >
+              <mat-option *ngFor="let filters of multiprompt.sizeChoices" [value]="filters">
+                {{ filters }}
+              </mat-option>
+            </mat-select>
+          </td>
+          <td class="tablesidecolumns">
+            <mat-icon
+              (click)="removeMultiItem(multiprompt)"
+              [ngClass]="multiprompt.removedQuestion ? 'itemremovedicon' : 'itemnotremovedicon'"
+              class="mat-icon notranslate material-icons"
+              >clear</mat-icon
+            >
+          </td>
+        </tr>
+      </section>
+
+      <section *ngFor="let singleprompt of group.singleprompts" class="singleprompttable">
+        <td class="tablesidecolumns">
+          &nbsp;
+        </td>
+        <td class="tabledropdownarea">
+          <h4 [ngClass]="singleprompt.removedQuestion ? 'itemremoved' : 'itemnotremoved'">{{ singleprompt.item }}</h4>
+        </td>
+        <td class="tablesidecolumns">
+          <mat-icon
+            (click)="removeSingleItem(singleprompt)"
+            [ngClass]="singleprompt.removedQuestion ? 'itemremovedicon' : 'itemnotremovedicon'"
+            class="mat-icon notranslate material-icons mat-icon-no-color"
+            >clear</mat-icon
+          >
+        </td>
+      </section>
+    </table>
+  </div>
+
+  <div *ngIf="showSpecificQuestions">
+    <div *ngFor="let group of selectedPrompts">
+      <ng-container *ngIf="group.prompts.length > 0">
+        <hr />
+        <h2 class="category-head text-center">For {{ group.groupName }}</h2>
+
+        <div *ngFor="let question of group.prompts" class="prompt">
+          <h3 class="text-center">{{ question.display }}</h3>
+          <h3 class="text-center">{{ question.size }}</h3>
+
+          <div fxLayout="row" fxLayoutAlign="space-around center">
+            <div fxLayout="column">
+              <h4 class="requestinglabel">Requesting</h4>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <input
+                  class="itemborder numinput"
+                  name="question.requesting"
+                  [(ngModel)]="question.requesting"
+                  (keyup)="question.sharing = 0"
+                  (change)="question.sharing = 0"
+                  type="number"
+                />
+                <div>
+                  <div>
+                    <mat-icon (click)="handleRequesting(question, 'up')" class="cce-blue">expand_less</mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon (click)="handleRequesting(question, 'down')" class="cce-blue">expand_more</mat-icon>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-    </div>
 
-    <div *ngIf="showMultipleSelect">   
-        <table class="tablestyle" *ngFor="let group of multiselectPrompts" >
-            <section>
-                <hr>
-                <tr>                    
-                    <td class="tableheader" colspan="2">
-                        <h2 class="category-head text-center">{{group.groupName}}</h2>
-                    </td>                    
-                </tr>
-            </section>
-
-            <section *ngFor="let multiprompt of group.multiprompts">
-                <tr>
-                    <td class="tablesidecolumns">
-                        &nbsp;
-                     </td>
-                     <td class="tabledropdownarea">
-                        <h4 [ngClass]="multiprompt.removedQuestion ? 'itemremoved' : 'itemnotremoved'">{{multiprompt.item}}</h4>
-                     </td>
-                     <td class="tablesidecolumns">
-                        &nbsp;
-                     </td>
-                </tr>
-                <tr>
-                    <td class="tablesidecolumns">
-                       &nbsp;
-                    </td>
-                    <td class="tabledropdownarea">
-                        <mat-select fxLayout="column" [(value)]="multiprompt.multiselect" multiple [disabled]="multiprompt.removedQuestion ? true : false" class="selectborder" placeholder="&nbsp;&nbsp;&nbsp;None Selected">
-                            <mat-option *ngFor="let filters of multiprompt.sizeChoices" [value]="filters">                            
-                                {{filters}}
-                            </mat-option>                    
-                        </mat-select>  
-                    </td>
-                    <td class="tablesidecolumns">
-                        <mat-icon (click)="removeMultiItem(multiprompt)" [ngClass]="multiprompt.removedQuestion ? 'itemremovedicon' : 'itemnotremovedicon'" class="mat-icon notranslate material-icons " >clear</mat-icon>
-                    </td>
-                </tr>
-            </section>
-
-            <section *ngFor="let singleprompt of group.singleprompts" class="singleprompttable">
-                <td class="tablesidecolumns">
-                    &nbsp;
-                 </td>
-                 <td class="tabledropdownarea">
-                    <h4 [ngClass]="singleprompt.removedQuestion ? 'itemremoved' : 'itemnotremoved'">{{singleprompt.item}}</h4>
-                 </td>
-                 <td class="tablesidecolumns">
-                    <mat-icon (click)="removeSingleItem(singleprompt)" [ngClass]="singleprompt.removedQuestion ? 'itemremovedicon' : 'itemnotremovedicon'" class="mat-icon notranslate material-icons mat-icon-no-color " >clear</mat-icon>
-                 </td>
-            </section>
-        </table>
-    </div>
-
-    
-    
-
-    <div *ngIf="showSpecificQuestions">
-
-        <div *ngFor="let group of selectedPrompts">
-            
-            <ng-container *ngIf="group.prompts.length > 0">
-                <hr>
-                <h2 class="category-head text-center">For {{group.groupName}}</h2>
-                
-                <div *ngFor="let question of group.prompts" class="prompt">
-                    
-                    <h3 class="text-center">{{question.display}}</h3>
-                    <h3 class="text-center">{{question.size}}</h3>
-
-                    <div fxLayout="row" fxLayoutAlign="space-around center">
-                        <div fxLayout="column">
-                            <h4 class="requestinglabel">Requesting</h4>
-                            <div fxLayout="row" fxLayoutAlign="center center">
-                                <input class="itemborder numinput" name="question.requesting" [(ngModel)]="question.requesting" (keyup)="question.sharing = 0" (change)="question.sharing = 0" type="number">
-                                <div>
-                                    <div>
-                                        <mat-icon (click)="handleRequesting(question, 'up')" class="cce-blue">expand_less</mat-icon>
-                                    </div>
-                                    <div>
-                                        <mat-icon (click)="handleRequesting(question, 'down')" class="cce-blue">expand_more</mat-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div fxLayout="column">
-                            <h4 class="sharinglabel">Sharing</h4>
-                            <div fxLayout="row" fxLayoutAlign="center center">
-                                <input class="itemborder numinput" name="question.sharing" [(ngModel)]="question.sharing" (keyup)="question.requesting = 0" (change)="question.requesting = 0" type="number">
-                                <div>
-                                    <div>
-                                        <mat-icon (click)="handleSharing(question, 'up')" class="cce-blue">expand_less</mat-icon>
-                                    </div>
-                                    <div>
-                                        <mat-icon (click)="handleSharing(question, 'down')" class="cce-blue">expand_more</mat-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- requestor notes -->
-                    <div *ngIf="question.requesting > 0">
-                        <p>Notes</p>
-                        <mat-form-field appearance="outline">
-                            <textarea matInput [(ngModel)]="question.requesterNotes" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
-                            </textarea>
-                        </mat-form-field>
-                    </div>
-                    <!-- Sharer Notes -->
-                    <div *ngIf="question.sharing > 0">
-                        <p>Notes</p>
-                        <mat-form-field appearance="outline">
-                            <textarea matInput [(ngModel)]="question.sharerNotes" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                                cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
-                            </textarea>
-                        </mat-form-field>
-                    </div>
-
-                    <div *ngIf="question.unitsOfIssueChoices != null && question.unitsOfIssueChoices.length > 1" class="radiogroup" fxLayout="row" fxLayoutAlign="center center">
-                        <mat-radio-group aria-label="Select an option" [(ngModel)]="question.unit">
-                            <mat-radio-button class="btn radio-group" *ngFor="let unit of question.unitsOfIssueChoices"
-                                [value]="unit">{{unit}}</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                    
+            <div fxLayout="column">
+              <h4 class="sharinglabel">Sharing</h4>
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <input
+                  class="itemborder numinput"
+                  name="question.sharing"
+                  [(ngModel)]="question.sharing"
+                  (keyup)="question.requesting = 0"
+                  (change)="question.requesting = 0"
+                  type="number"
+                />
+                <div>
+                  <div>
+                    <mat-icon (click)="handleSharing(question, 'up')" class="cce-blue">expand_less</mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon (click)="handleSharing(question, 'down')" class="cce-blue">expand_more</mat-icon>
+                  </div>
                 </div>
-            </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <!-- requestor notes -->
+          <div *ngIf="question.requesting > 0">
+            <p>Notes</p>
+            <mat-form-field appearance="outline">
+              <textarea
+                matInput
+                [(ngModel)]="question.requesterNotes"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+              >
+              </textarea>
+            </mat-form-field>
+          </div>
+          <!-- Sharer Notes -->
+          <div *ngIf="question.sharing > 0">
+            <p>Notes</p>
+            <mat-form-field appearance="outline">
+              <textarea
+                matInput
+                [(ngModel)]="question.sharerNotes"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="5"
+              >
+              </textarea>
+            </mat-form-field>
+          </div>
+
+          <div
+            *ngIf="question.unitsOfIssueChoices != null && question.unitsOfIssueChoices.length > 1"
+            class="radiogroup"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+          >
+            <mat-radio-group aria-label="Select an option" [(ngModel)]="question.unit">
+              <mat-radio-button class="btn radio-group" *ngFor="let unit of question.unitsOfIssueChoices" [value]="unit">{{
+                unit
+              }}</mat-radio-button>
+            </mat-radio-group>
+          </div>
         </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="showConfirm">
+    <h2 *ngIf="requests.length || shares.length" class="text-center category-head">
+      Based upon your answers it looks like you are...
+    </h2>
+
+    <div *ngIf="!showConfirmBtn">
+      <h2 class="text-center confirmation-header">You have chosen no shares or needs. Please return and select an item.</h2>
     </div>
 
-    <div *ngIf="showConfirm" >
-
-        <h2 *ngIf="requests.length || shares.length" class="text-center category-head">
-            Based upon your answers it looks like you are...
-        </h2>
-
-        <div *ngIf="!showConfirmBtn" >
-            <h2 class="text-center confirmation-header">You have chosen no shares or needs. Please return and select an item.</h2>
+    <div *ngIf="requests.length > 0">
+      <mat-card class="confirmation-box mat-elevation-z5">
+        <h3>Requesting</h3>
+        <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let request of requests; let i = index">
+          <p class="cardsizeleft">
+            <strong
+              >{{ request.item }} <span *ngIf="request.sizes != null">({{ request.size }})</span></strong
+            >
+          </p>
+          <p class="cardsizeright">
+            {{ request.requesting }} <span *ngIf="request.unit != null">({{ request.unit }})</span>
+          </p>
         </div>
-
-        <div *ngIf="requests.length > 0" >
-            <mat-card class="confirmation-box mat-elevation-z5">
-                <h3>Requesting</h3>
-                <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let request of requests; let i = index;">                    
-                    <p class="cardsizeleft"><strong>{{ request.item }} <span *ngIf="request.sizes != null">({{request.size}})</span></strong></p>                    
-                    <p class="cardsizeright">{{ request.requesting }} <span *ngIf="request.unit != null">({{request.unit}})</span></p>
-                </div>
-            </mat-card>
-        </div>
-
-        <div *ngIf="shares.length > 0" >
-            <mat-card class="confirmation-box mat-elevation-z5">
-                <h3>Sharing</h3>
-                <div fxLayout="row" fxLayoutAlign="space-between center " *ngFor="let share of shares; let i = index;">                    
-                    <p class="cardsizeleft"><strong>{{ share.item }} <span *ngIf="share.sizes != null">({{share.size}})</span></strong></p>                   
-                    <p class="cardsizeright">{{ share.sharing }} <span *ngIf="share.unit != null">({{share.unit}})</span></p>
-                </div>
-            </mat-card>
-        </div>        
+      </mat-card>
     </div>
 
-    <div class="page-footer mat-elevation-z5" fxLayout="row" fxLayoutAlign="center center">
-        <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showChangeAnswersBtn" (click)="onChangeAnswers()">
-            <mat-icon class="cce-white">arrow_back</mat-icon>
-        </button>
-        
-        <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showGoBackToGroupTypesBtn" (click)="onGoBackToGroupTypes()">
-            <mat-icon class="cce-white">arrow_back</mat-icon>
-        </button>
-
-        <button class="nav-action btn cce" mat-fab color="primary"  *ngIf="showGoBackMultipleSelectBtn" (click)="onGoBackMultipleSelect()">
-            <mat-icon class="cce-white">arrow_back</mat-icon>
-        </button>
-
-        
-        <button class="nav-action btn cce" mat-fab  color="primary" *ngIf="showSubmitAnswersBtn" (click)="onSubmit()">
-            <mat-icon class="cce-white">arrow_forward</mat-icon>
-        </button>
-        
-
-        <button class="nav-action btn cce" mat-fab  color="primary" *ngIf="showConfirmBtn" (click)="onConfirm()">
-            <mat-icon class="cce-white">arrow_forward</mat-icon>
-        </button>
-
-
-        <button class="nav-action btn cce" mat-fab  color="primary" *ngIf="showGoToQuestionsBtn" (click)="onGoToQuestions()">
-            <mat-icon class="cce-white">arrow_forward</mat-icon>
-        </button>
-
-        <button class="nav-action btn cce" mat-fab  color="primary" *ngIf="showMultipleSelectBtn" (click)="onGoToMultipleSelect()">
-            <mat-icon class="cce-white">arrow_forward</mat-icon>
-        </button>
+    <div *ngIf="shares.length > 0">
+      <mat-card class="confirmation-box mat-elevation-z5">
+        <h3>Sharing</h3>
+        <div fxLayout="row" fxLayoutAlign="space-between center " *ngFor="let share of shares; let i = index">
+          <p class="cardsizeleft">
+            <strong
+              >{{ share.item }} <span *ngIf="share.sizes != null">({{ share.size }})</span></strong
+            >
+          </p>
+          <p class="cardsizeright">
+            {{ share.sharing }} <span *ngIf="share.unit != null">({{ share.unit }})</span>
+          </p>
+        </div>
+      </mat-card>
     </div>
+  </div>
 
+  <div class="page-footer mat-elevation-z5" fxLayout="row" fxLayoutAlign="center center">
+    <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showChangeAnswersBtn" (click)="onChangeAnswers()">
+      <mat-icon class="cce-white">arrow_back</mat-icon>
+    </button>
+
+    <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showGoBackToGroupTypesBtn" (click)="onGoBackToGroupTypes()">
+      <mat-icon class="cce-white">arrow_back</mat-icon>
+    </button>
+
+    <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showGoBackMultipleSelectBtn" (click)="onGoBackMultipleSelect()">
+      <mat-icon class="cce-white">arrow_back</mat-icon>
+    </button>
+
+    <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showSubmitAnswersBtn" (click)="onSubmit()">
+      <mat-icon class="cce-white">arrow_forward</mat-icon>
+    </button>
+
+    <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showConfirmBtn" (click)="onConfirm()">
+      <mat-icon class="cce-white">arrow_forward</mat-icon>
+    </button>
+
+    <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showGoToQuestionsBtn" (click)="onGoToQuestions()">
+      <mat-icon class="cce-white">arrow_forward</mat-icon>
+    </button>
+
+    <button class="nav-action btn cce" mat-fab color="primary" *ngIf="showMultipleSelectBtn" (click)="onGoToMultipleSelect()">
+      <mat-icon class="cce-white">arrow_forward</mat-icon>
+    </button>
+  </div>
 </section>

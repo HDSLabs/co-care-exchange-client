@@ -5,7 +5,7 @@
   left: 0;
   right: 0;
   z-index: 2;
-  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, .2), 0 6px 10px 0 rgba(0, 0, 0, .14), 0 1px 18px 0 rgba(0, 0, 0, .12);
+  box-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
 }
 
 .login-wrapper {
@@ -32,25 +32,25 @@
 }
 
 .box.back {
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
   top: -20px;
-  opacity: .8;
+  opacity: 0.8;
   z-index: -1;
 }
 
 .box:before {
-  content: "";
+  content: '';
   width: 100%;
   height: 30px;
   border-radius: 10px;
   position: absolute;
   top: -10px;
   left: 0;
-  transform: scale(.95);
-  -webkit-transform: scale(.95);
-  -ms-transform: scale(.95);
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
   z-index: -1;
 }
 
@@ -60,7 +60,8 @@
   width: 100%;
 }
 
-.login-wrapper .login-full-width, .login-wrapper .btn-block {
+.login-wrapper .login-full-width,
+.login-wrapper .btn-block {
   width: 100%;
 }
 
@@ -103,11 +104,9 @@ mat-error {
   font-size: x-small;
   flex-grow: 1;
   max-width: 100%;
-  flex-basis: 0
+  flex-basis: 0;
 }
 
 .message {
   text-align: center;
 }
-
-

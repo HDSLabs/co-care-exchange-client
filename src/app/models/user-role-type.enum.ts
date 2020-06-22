@@ -1,10 +1,10 @@
 export enum UserRoleType {
-  Admin  = 'ADMIN',
+  Admin = 'ADMIN',
   Player = 'PLAYER',
-  Coach  = 'COACH'
+  Coach = 'COACH',
 }
 
-export function fromRoleName ( name: string ): UserRoleType {
+export function fromRoleName(name: string): UserRoleType {
   if (UserRoleType.Admin === name) {
     return UserRoleType.Admin;
   } else if (UserRoleType.Player === name) {

@@ -1,109 +1,137 @@
 <section class="section agreement-detail-card" fxLayout="column" fxLayoutAlign="center center">
-    
-    <div>
-        <h2> {{ vm.itemDetails.name }}</h2>
-        <span class="quantity-prefix">x</span><span>{{ formatItemDetails(vm.itemDetails) }}</span>
-        <h3 class="sub-title status-text" [ngClass]="{
-            'is-pending': vm.itemDetails.status === status.FindingMatch,
-            'is-matched': vm.itemDetails.status === status.NewMatchFound,
-            'is-confirmed': vm.itemDetails.status === status.OrderConfirmed,
-            'is-fulfilled': vm.itemDetails.status === status.OrderFulfilled,
-            'is-cancelled': vm.itemDetails.status === status.OrderCancelled
-        }"><strong>{{ vm.itemDetails.statusDisplay }}</strong></h3>
+  <div>
+    <h2>{{ vm.itemDetails.name }}</h2>
+    <span class="quantity-prefix">x</span><span>{{ formatItemDetails(vm.itemDetails) }}</span>
+    <h3
+      class="sub-title status-text"
+      [ngClass]="{
+        'is-pending': vm.itemDetails.status === status.FindingMatch,
+        'is-matched': vm.itemDetails.status === status.NewMatchFound,
+        'is-confirmed': vm.itemDetails.status === status.OrderConfirmed,
+        'is-fulfilled': vm.itemDetails.status === status.OrderFulfilled,
+        'is-cancelled': vm.itemDetails.status === status.OrderCancelled
+      }"
+    >
+      <strong>{{ vm.itemDetails.statusDisplay }}</strong>
+    </h3>
 
-        <p *ngIf="vm.itemDetails.requesterName" class="name body-copy">You matched with
-            {{ vm.itemDetails.requesterName }}!</p>
+    <p *ngIf="vm.itemDetails.requesterName" class="name body-copy">You matched with {{ vm.itemDetails.requesterName }}!</p>
 
-        <p class="body-copy">{{ vm.itemDetails.dialogMessage }}</p>
+    <p class="body-copy">{{ vm.itemDetails.dialogMessage }}</p>
 
-        <!-- <h3 class="sub-title">{{ vm.itemDetails.addressLabel }}</h3>
+    <!-- <h3 class="sub-title">{{ vm.itemDetails.addressLabel }}</h3>
         <p class="body-copy">{{ vm.itemDetails.deliveryAddress ? vm.itemDetails.deliveryAddress : '--' }}</p> -->
 
-        <!-- Chat Log -->
-        <h3>Messages</h3>
-        <div *ngIf="vm.itemDetails.orderNotes && vm.itemDetails.orderNotes.length; else nonotes">
-            <div class="chat-entry" *ngFor="let note of vm.itemDetails.orderNotes" [ngClass]="{
-                'is-user-message': note.userId === vm.userId,
-                'is-guest-message': note.userId !== vm.userId
-            }">
-                <p class="author">{{ note.createdBy }}</p>
-                <div class="chat-body">
-                    <div *ngIf="note.imageUrl == null">{{ note.noteBody }}</div>
-                    <div *ngIf="note.imageUrl != null">                       
-                        <app-item-image-canvas [imageUrl]="note.imageUrl"></app-item-image-canvas>
-                    </div>
-                    <div>
-                        <small><i>{{ note.createdOn | date:'short' }}</i></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <ng-template #nonotes>
-            <p><i>No messages yet...</i></p>
-        </ng-template>
-        <!-- new message pending animation -->
-        <div *ngIf="vm.newMessagePending" class="wave-animation">
-            <span class="dot"></span>
-            <span class="dot"></span>
-            <span class="dot"></span>
-        </div>
-
-        <!-- Chat Input -->
-        <div class="input-area" fxLayout="row" fxLayoutAlign="start center" 
-            *ngIf="vm.itemDetails.status !== status.OrderFulfilled && vm.itemDetails.status !== status.OrderCancelled">
-            <mat-form-field appearance="outline">
-                <textarea matInput [formControl]="orderNoteFC" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                    cdkAutosizeMinRows="3" cdkAutosizeMaxRows="10">
-                </textarea>
-            </mat-form-field>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="end center" *ngIf="vm.itemDetails.status !== status.OrderFulfilled && vm.itemDetails.status !== status.OrderCancelled" >
-            <button class="primary send-btn" mat-button color="primary" [disabled]="orderNoteFC.value === ''" (click)="onSubmitEdit()" >
-                <mat-icon>send</mat-icon>
-            </button>
-            <mat-icon class="cameraicon" (click)="takepicture()" *ngIf="!showImageArea">camera_alt</mat-icon>
-            <mat-icon class="cameraicon" (click)="hidepicture()" *ngIf="showImageArea">keyboard_arrow_up</mat-icon>
-        </div>
-
-        <div>           
-            <app-item-takepicture *ngIf="showImageArea" [agreement]="vm.itemDetails" [imagename]="imagename" [showImageArea]="showImageArea" (picturetakenEvent)="pictureTaken()"></app-item-takepicture>
-        </div>
-
-        <div class="actions actionbuttons" fxLayout="row">
-            <button
-              *ngIf="vm.itemDetails.status !== status.OrderCancelled && vm.itemDetails.status !== status.OrderFulfilled"
-              mat-button
-              mat-flat-button
-              color="warn"
-              (click)="onCancelMatch(vm.itemDetails)"
+    <!-- Chat Log -->
+    <h3>Messages</h3>
+    <div *ngIf="vm.itemDetails.orderNotes && vm.itemDetails.orderNotes.length; else nonotes">
+      <div
+        class="chat-entry"
+        *ngFor="let note of vm.itemDetails.orderNotes"
+        [ngClass]="{
+          'is-user-message': note.userId === vm.userId,
+          'is-guest-message': note.userId !== vm.userId
+        }"
+      >
+        <p class="author">{{ note.createdBy }}</p>
+        <div class="chat-body">
+          <div *ngIf="note.imageUrl == null">{{ note.noteBody }}</div>
+          <div *ngIf="note.imageUrl != null">
+            <app-item-image-canvas [imageUrl]="note.imageUrl"></app-item-image-canvas>
+          </div>
+          <div>
+            <small
+              ><i>{{ note.createdOn | date: 'short' }}</i></small
             >
-              Cancel Match
-            </button>
-            <button
-              *ngIf="vm.itemDetails.status == status.NewMatchFound"
-              mat-button
-              mat-flat-button
-              color="primary"
-              (click)="onConfirmMatch(vm.itemDetails)"
-            >
-              Confirm Match
-            </button>
-            <button
-              *ngIf="vm.itemDetails.status == status.OrderConfirmed"
-              mat-button
-              mat-flat-button
-              color="primary"
-              (click)="onConfirmFulfillemnt(vm.itemDetails)"
-            >
-            Confirm Fulfillment
-            </button>
-         
-        </div>     
+          </div>
+        </div>
+      </div>
     </div>
+    <ng-template #nonotes>
+      <p><i>No messages yet...</i></p>
+    </ng-template>
+    <!-- new message pending animation -->
+    <div *ngIf="vm.newMessagePending" class="wave-animation">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+
+    <!-- Chat Input -->
+    <div
+      class="input-area"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      *ngIf="vm.itemDetails.status !== status.OrderFulfilled && vm.itemDetails.status !== status.OrderCancelled"
+    >
+      <mat-form-field appearance="outline">
+        <textarea
+          matInput
+          [formControl]="orderNoteFC"
+          cdkTextareaAutosize
+          #autosize="cdkTextareaAutosize"
+          cdkAutosizeMinRows="3"
+          cdkAutosizeMaxRows="10"
+        >
+        </textarea>
+      </mat-form-field>
+    </div>
+    <div
+      fxLayout="row"
+      fxLayoutAlign="end center"
+      *ngIf="vm.itemDetails.status !== status.OrderFulfilled && vm.itemDetails.status !== status.OrderCancelled"
+    >
+      <button class="primary send-btn" mat-button color="primary" [disabled]="orderNoteFC.value === ''" (click)="onSubmitEdit()">
+        <mat-icon>send</mat-icon>
+      </button>
+      <mat-icon class="cameraicon" (click)="takepicture()" *ngIf="!showImageArea">camera_alt</mat-icon>
+      <mat-icon class="cameraicon" (click)="hidepicture()" *ngIf="showImageArea">keyboard_arrow_up</mat-icon>
+    </div>
+
+    <div>
+      <app-item-takepicture
+        *ngIf="showImageArea"
+        [agreement]="vm.itemDetails"
+        [imagename]="imagename"
+        [showImageArea]="showImageArea"
+        (picturetakenEvent)="pictureTaken()"
+      ></app-item-takepicture>
+    </div>
+
+    <div class="actions actionbuttons" fxLayout="row">
+      <button
+        *ngIf="vm.itemDetails.status !== status.OrderCancelled && vm.itemDetails.status !== status.OrderFulfilled"
+        mat-button
+        mat-flat-button
+        color="warn"
+        (click)="onCancelMatch(vm.itemDetails)"
+      >
+        Cancel Match
+      </button>
+      <button
+        *ngIf="vm.itemDetails.status == status.NewMatchFound"
+        mat-button
+        mat-flat-button
+        color="primary"
+        (click)="onConfirmMatch(vm.itemDetails)"
+      >
+        Confirm Match
+      </button>
+      <button
+        *ngIf="vm.itemDetails.status == status.OrderConfirmed"
+        mat-button
+        mat-flat-button
+        color="primary"
+        (click)="onConfirmFulfillemnt(vm.itemDetails)"
+      >
+        Confirm Fulfillment
+      </button>
+    </div>
+  </div>
 </section>
 
 <div class="page-footer mat-elevation-z5" fxLayout="row" fxLayoutAlign="center center">
-    <a mat-button class="nav-action btn cce" mat-fab color="primary" (click)="navigateBackToDashboard()">
-        <mat-icon class="cce-white">arrow_back</mat-icon>
-    </a>
+  <a mat-button class="nav-action btn cce" mat-fab color="primary" (click)="navigateBackToDashboard()">
+    <mat-icon class="cce-white">arrow_back</mat-icon>
+  </a>
 </div>

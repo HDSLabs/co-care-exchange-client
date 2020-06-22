@@ -1,5 +1,5 @@
 export interface AuthState {
-    isLoggedIn: boolean;
-    user: any | null;
-    hasUserProfile: boolean;
+  isLoggedIn: boolean;
+  user: any | null;
+  hasUserProfile: boolean;
 }

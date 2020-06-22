@@ -96,7 +96,7 @@ export class PasswordResetComponent implements OnInit {
         this.pwResetForm.controls.resetCode.value,
         this.pwResetForm.controls.confirmPassword.value
       );
-      this.success = true; 
+      this.success = true;
       this.router.navigate(['/', WELCOME_ROUTE]);
     } catch (err) {
       console.error('Error resetting password ', err);

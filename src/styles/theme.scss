@@ -1,8 +1,8 @@
-@import "~@angular/material/theming";
+@import '~@angular/material/theming';
 @include mat-core();
 
 $colorado-care-exchange-typography: mat-typography-config(
-  $font-family: "Roboto, sans-serif"
+  $font-family: 'Roboto, sans-serif',
 );
 @include mat-core($colorado-care-exchange-typography);
 $font-config: mat-typography-config();
@@ -13,4 +13,3 @@ $warn: mat-palette($mat-red);
 $colorado-care-exchange-theme: mat-light-theme($primary, $accent, $warn);
 
 @include angular-material-theme($colorado-care-exchange-theme);
-

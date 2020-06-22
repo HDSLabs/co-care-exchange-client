@@ -113,7 +113,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  onRegisterOrgInfoClick(){
+  onRegisterOrgInfoClick() {
     const ref = this.dialog.open(RegisterOrgInfoDialogComponent, {
       width: '300px',
       data: {},

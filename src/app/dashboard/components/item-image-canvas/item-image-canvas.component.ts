@@ -23,18 +23,19 @@ export class ItemImageCanvasComponent implements OnInit {
     console.log('getImage', this.imageUrl);
 
     Storage.get(this.imageUrl, { download: true, level: 'public' })
-      .then(res => {
+      .then((res) => {
+
         //console.log('success => ', res);
 
         let image = new Image();
 
-        image.onload = function() {
+        image.onload = function () {
           self.canvasElement.nativeElement.getContext('2d').drawImage(image, 0, 0);
         };
 
         image.src = JSON.parse(JSON.stringify(res))['Body'];
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('error => ', err);
       });
   }

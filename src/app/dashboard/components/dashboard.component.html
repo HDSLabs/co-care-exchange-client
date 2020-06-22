@@ -2,41 +2,56 @@
 <section class="section tight">
   <div *ngIf="vm$ | async as vm; else inprogress">
     <div fxLayout="row" fxLayoutAlign="space-between center">
-      <div >
-        <h2>Requests</h2> 
+      <div>
+        <h2>Requests</h2>
       </div>
       <div>
         <mat-form-field *ngIf="vm.orgId" class="orgselectwidth">
           <mat-label>Filter</mat-label>
-          <mat-select [formControl]="filter" class="itemborder" >
+          <mat-select [formControl]="filter" class="itemborder">
             <mat-option value="myItems">View Mine Only</mat-option>
             <mat-option value="showAllOrganization">View All Organization</mat-option>
           </mat-select>
         </mat-form-field>
-        <button mat-button mat-flat-button color="primary" class="btn cce-btn editbutton" (click)="showTrashClick(true)" *ngIf="!showTrash && isWeb">Edit</button>
-        <button mat-button mat-flat-button  class="btn cce-btn donebutton" (click)="showTrashClick(false)" *ngIf="showTrash && isWeb">Done</button>
+        <button
+          mat-button
+          mat-flat-button
+          color="primary"
+          class="btn cce-btn editbutton"
+          (click)="showTrashClick(true)"
+          *ngIf="!showTrash && isWeb"
+        >
+          Edit
+        </button>
+        <button mat-button mat-flat-button class="btn cce-btn donebutton" (click)="showTrashClick(false)" *ngIf="showTrash && isWeb">
+          Done
+        </button>
       </div>
     </div>
 
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-           
-    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center"></div>
     <div *ngIf="!vm.loading; else inprogress">
       <div *ngIf="vm.needs && vm.needs.length > 0; else noneeds">
         <div *ngFor="let group of vm.needs">
-          <p class="group-header" *ngIf="vm.filterState === 'showAllOrganization'">{{group.createdBy}}</p>
+          <p class="group-header" *ngIf="vm.filterState === 'showAllOrganization'">{{ group.createdBy }}</p>
           <div *ngFor="let request of group.items" class="row-item">
             <div fxLayout="row" fxLayoutAlign="start center">
-              <mat-list-item (swipeleft)="toggleRowState(request, 'rowOpen')"
+              <mat-list-item
+                (swipeleft)="toggleRowState(request, 'rowOpen')"
                 (swiperight)="toggleRowState(request, 'rowClosed')"
-                [routerLink]="['/dashboard-item', 'request', request.itemId]" class="contentborder dashboard-list-item">
-                <div class="swipe-container"
-                  [@.disabled]="request.status !== status.OrderCancelled && request.status !== status.OrderFulfilled">
-                  <div class="dashboardlistitem" [@rowAnimate]="request.rowState"
+                [routerLink]="['/dashboard-item', 'request', request.itemId]"
+                class="contentborder dashboard-list-item"
+              >
+                <div
+                  class="swipe-container"
+                  [@.disabled]="request.status !== status.OrderCancelled && request.status !== status.OrderFulfilled"
+                >
+                  <div class="dashboardlistitem" [@rowAnimate]="request.rowState">
+                    <mat-label class="contentlabel"
+                      >{{ request.name }}<br />
+                      <span class="content-multiplier">x</span
+                      ><span class="contentlabel-detail">{{ formatItemDetails(request) }}</span></mat-label
                     >
-                    <mat-label class="contentlabel">{{ request.name }}<br>
-                      <span class="content-multiplier">x</span><span
-                        class="contentlabel-detail">{{ formatItemDetails(request) }}</span></mat-label>
                     <mat-label [className]="getStyle(request.status)" style="margin-left: auto;">
                       {{ request.statusDisplay }}
                     </mat-label>
@@ -49,8 +64,12 @@
                 </div>
               </mat-list-item>
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center" class="desktop-delete"
-              *ngIf="(request.status === status.OrderCancelled || request.status === status.OrderFulfilled) && showTrash">
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              class="desktop-delete"
+              *ngIf="(request.status === status.OrderCancelled || request.status === status.OrderFulfilled) && showTrash"
+            >
               <mat-icon (click)="deleteItem($event, request)">delete</mat-icon>
             </div>
           </div>
@@ -65,16 +84,22 @@
           <p class="group-header" *ngIf="vm.filterState === 'showAllOrganization'">{{ group.createdBy }}</p>
           <div *ngFor="let request of group.items" class="row-item">
             <div fxLayout="row" fxLayoutAlign="start center">
-              <mat-list-item (swipeleft)="toggleRowState(request, 'rowOpen')"
+              <mat-list-item
+                (swipeleft)="toggleRowState(request, 'rowOpen')"
                 (swiperight)="toggleRowState(request, 'rowClosed')"
-                [routerLink]="['/dashboard-item', 'share', request.itemId]" class="contentborder dashboard-list-item">
-                <div class="swipe-container"
-                  [@.disabled]="request.status !== status.OrderCancelled && request.status !== status.OrderFulfilled">
-                  <div class="dashboardlistitem" [@rowAnimate]="request.rowState"
+                [routerLink]="['/dashboard-item', 'share', request.itemId]"
+                class="contentborder dashboard-list-item"
+              >
+                <div
+                  class="swipe-container"
+                  [@.disabled]="request.status !== status.OrderCancelled && request.status !== status.OrderFulfilled"
+                >
+                  <div class="dashboardlistitem" [@rowAnimate]="request.rowState">
+                    <mat-label class="contentlabel"
+                      >{{ request.name }}<br />
+                      <span class="content-multiplier">x</span
+                      ><span class="contentlabel-detail">{{ formatItemDetails(request) }}</span></mat-label
                     >
-                    <mat-label class="contentlabel">{{ request.name }}<br>
-                      <span class="content-multiplier">x</span><span
-                        class="contentlabel-detail">{{ formatItemDetails(request) }}</span></mat-label>
                     <mat-label [className]="getStyle(request.status)" style="margin-left: auto;">
                       {{ request.statusDisplay }}
                     </mat-label>
@@ -87,15 +112,18 @@
                 </div>
               </mat-list-item>
             </div>
-            <div fxLayout="row" fxLayoutAlign="center center" class="desktop-delete"
-              *ngIf="(request.status === status.OrderCancelled || request.status === status.OrderFulfilled) && showTrash">
+            <div
+              fxLayout="row"
+              fxLayoutAlign="center center"
+              class="desktop-delete"
+              *ngIf="(request.status === status.OrderCancelled || request.status === status.OrderFulfilled) && showTrash"
+            >
               <mat-icon (click)="deleteItem($event, request)">delete</mat-icon>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 

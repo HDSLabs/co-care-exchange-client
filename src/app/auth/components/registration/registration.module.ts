@@ -10,16 +10,8 @@ import { RegisterOrgInfoDialogComponent } from './components/register-org-info-d
 
 @NgModule({
   declarations: [RegisterComponent, RegisterOrgInfoDialogComponent],
-  imports: [
-    CommonModule,
-    CustomMaterialModule,
-    ReactiveFormsModule,
-    SharedModule,
-    FormsModule,
-    FlexLayoutModule,
-    RouterModule
-  ],
-  exports:[RegisterComponent, RegisterOrgInfoDialogComponent],
-  entryComponents: [RegisterOrgInfoDialogComponent]
+  imports: [CommonModule, CustomMaterialModule, ReactiveFormsModule, SharedModule, FormsModule, FlexLayoutModule, RouterModule],
+  exports: [RegisterComponent, RegisterOrgInfoDialogComponent],
+  entryComponents: [RegisterOrgInfoDialogComponent],
 })
 export class RegistrationModule {}

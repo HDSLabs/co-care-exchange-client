@@ -1,12 +1,12 @@
 <div class="imagearea">
-    <div class="videoarea">  
-        <video class="imagebox" #video autoplay *ngIf="!hideVid"></video>        
-        <canvas class="imagebox" #canvas *ngIf="!hidePic"></canvas>        
-    </div>
+  <div class="videoarea">
+    <video class="imagebox" #video autoplay *ngIf="!hideVid"></video>
+    <canvas class="imagebox" #canvas *ngIf="!hidePic"></canvas>
+  </div>
 
-    <div>        
-        <mat-icon class="iconcolor iconretakepic" (click)="retakepicture()" *ngIf="showRetakeBtn">flip_camera_ios</mat-icon>
-        <mat-icon class="iconcolor icontakepic" (click)="captureimage()" *ngIf="showCaptureBtn">camera</mat-icon>
-        <mat-icon class="accepticon" (click)="acceptimage()" *ngIf="showRetakeBtn">check_circle</mat-icon>  
-    </div>  
+  <div>
+    <mat-icon class="iconcolor iconretakepic" (click)="retakepicture()" *ngIf="showRetakeBtn">flip_camera_ios</mat-icon>
+    <mat-icon class="iconcolor icontakepic" (click)="captureimage()" *ngIf="showCaptureBtn">camera</mat-icon>
+    <mat-icon class="accepticon" (click)="acceptimage()" *ngIf="showRetakeBtn">check_circle</mat-icon>
+  </div>
 </div>

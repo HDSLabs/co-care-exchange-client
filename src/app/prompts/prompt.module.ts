@@ -7,8 +7,6 @@ import { PromptsComponent } from './prompts/prompts.component';
 
 @NgModule({
   imports: [CommonModule, ReactiveFormsModule, FlexLayoutModule, CustomMaterialModule, FormsModule],
-  declarations: [
-    PromptsComponent
-  ],
+  declarations: [PromptsComponent],
 })
 export class PromptModule {}

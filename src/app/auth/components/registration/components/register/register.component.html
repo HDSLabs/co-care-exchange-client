@@ -1,27 +1,25 @@
 <section class="section tabcontent">
   <mat-card class="mat-elevation-z10">
-
     <form [formGroup]="registerForm" class="login-form">
       <mat-card-content>
-
         <div class="orgsignuplink" (click)="onRegisterOrgInfoClick()">Signing up an Organization?</div>
 
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="First Name" formControlName="firstName" type="text">
+          <input matInput placeholder="First Name" formControlName="firstName" type="text" />
           <mat-error *ngIf="registerForm.get('firstName').hasError('required')">
             First name is a required field
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="Last Name" formControlName="lastName" type="text">
+          <input matInput placeholder="Last Name" formControlName="lastName" type="text" />
           <mat-error *ngIf="registerForm.get('lastName').hasError('required')">
             Last name is a required field
           </mat-error>
         </mat-form-field>
 
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="Email" formControlName="email" type="text">
+          <input matInput placeholder="Email" formControlName="email" type="text" />
           <mat-error *ngIf="registerForm.get('email').hasError('required')">
             Email is a required field
           </mat-error>
@@ -31,74 +29,114 @@
         </mat-form-field>
 
         <div class="form-group">
-
           <mat-form-field class="login-full-width">
-            <input matInput placeholder="Password" formControlName="password" type="password">
+            <input matInput placeholder="Password" formControlName="password" type="password" />
           </mat-form-field>
         </div>
 
         <div class="form-group">
           <mat-form-field class="login-full-width">
-            <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password">
+            <input matInput placeholder="Confirm Password" formControlName="confirmPassword" type="password" />
           </mat-form-field>
 
-          <div class="validation-block error-buffer"
-            [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('minlength')  ? 'validation-error' : 'validation-success'">
-            <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
-            registerForm.controls['password'].hasError('minlength') ? 'cancel' :
-            'check_circle' }}</i>
+          <div
+            class="validation-block error-buffer"
+            [ngClass]="
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('minlength')
+                ? 'validation-error'
+                : 'validation-success'
+            "
+          >
+            <i class="material-icons">{{
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('minlength')
+                ? 'cancel'
+                : 'check_circle'
+            }}</i>
             Must be at least 8 characters!
           </div>
-          <div class="validation-block"
-            [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasNumber')  ? 'validation-error' : 'validation-success'">
-            <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
-            registerForm.controls['password'].hasError('hasNumber') ? 'cancel' :
-            'check_circle' }}</i>
+          <div
+            class="validation-block"
+            [ngClass]="
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasNumber')
+                ? 'validation-error'
+                : 'validation-success'
+            "
+          >
+            <i class="material-icons">{{
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasNumber')
+                ? 'cancel'
+                : 'check_circle'
+            }}</i>
             Must contain at least 1 number!
           </div>
-          <div class="validation-block"
-            [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasCapitalCase')  ? 'validation-error' : 'validation-success'">
-            <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
-            registerForm.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
-            'check_circle' }}</i>
+          <div
+            class="validation-block"
+            [ngClass]="
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasCapitalCase')
+                ? 'validation-error'
+                : 'validation-success'
+            "
+          >
+            <i class="material-icons">{{
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasCapitalCase')
+                ? 'cancel'
+                : 'check_circle'
+            }}</i>
             Must contain at least 1 in Capital Case!
           </div>
-          <div class="validation-block"
-            [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSmallCase')  ? 'validation-error' : 'validation-success'">
-            <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
-            registerForm.controls['password'].hasError('hasSmallCase') ? 'cancel' :
-            'check_circle' }}</i>
+          <div
+            class="validation-block"
+            [ngClass]="
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSmallCase')
+                ? 'validation-error'
+                : 'validation-success'
+            "
+          >
+            <i class="material-icons">{{
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSmallCase')
+                ? 'cancel'
+                : 'check_circle'
+            }}</i>
             Must contain at least 1 Letter in Small Case!
           </div>
-          <div class="validation-block"
-            [ngClass]="registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSpecialCharacters') ? 'validation-error' : 'validation-success'">
-            <i class="material-icons">{{ registerForm.controls['password'].hasError('required') ||
-            registerForm.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
-            'check_circle' }}</i>
+          <div
+            class="validation-block"
+            [ngClass]="
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSpecialCharacters')
+                ? 'validation-error'
+                : 'validation-success'
+            "
+          >
+            <i class="material-icons">{{
+              registerForm.controls['password'].hasError('required') || registerForm.controls['password'].hasError('hasSpecialCharacters')
+                ? 'cancel'
+                : 'check_circle'
+            }}</i>
             Must contain at least 1 Special Character!
           </div>
-          <div class="validation-block"
-            *ngIf="registerForm.controls['confirmPassword'].value?.length || registerForm.controls['confirmPassword'].hasError('NoPasswordMatch')"
-            [ngClass]="registerForm.controls['confirmPassword'].hasError('NoPasswordMatch') ? 'validation-error' : 'validation-success'">
-            <i class="material-icons">{{ registerForm.controls['password'].hasError('NoPasswordMatch') ? 'cancel' :
-            'check_circle' }}</i>
+          <div
+            class="validation-block"
+            *ngIf="
+              registerForm.controls['confirmPassword'].value?.length || registerForm.controls['confirmPassword'].hasError('NoPasswordMatch')
+            "
+            [ngClass]="registerForm.controls['confirmPassword'].hasError('NoPasswordMatch') ? 'validation-error' : 'validation-success'"
+          >
+            <i class="material-icons">{{ registerForm.controls['password'].hasError('NoPasswordMatch') ? 'cancel' : 'check_circle' }}</i>
             Passwords must match!
           </div>
         </div>
 
-        <mat-error class="error-message" *ngIf="error===true">
+        <mat-error class="error-message" *ngIf="error === true">
           <div *ngIf="errorMessage">
-            {{errorMessage}}
+            {{ errorMessage }}
           </div>
           <div *ngIf="!errorMessage">
             Invalid username or password
           </div>
         </mat-error>
-
       </mat-card-content>
 
       <mat-progress-bar *ngIf="isRegistering" mode="indeterminate" color="accent"></mat-progress-bar>
-
     </form>
   </mat-card>
 
@@ -112,8 +150,5 @@
     <a class="links pantry-link" (click)="handlePantry()">Food Pantries Near Me</a>
   </div>
 
-  <p class="vertical-rhythm-two text-primary text-center">
-    Simplifying things that matter for <br>people who care.
-  </p>
-
+  <p class="vertical-rhythm-two text-primary text-center">Simplifying things that matter for <br />people who care.</p>
 </section>

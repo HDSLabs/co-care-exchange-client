@@ -112,7 +112,7 @@ export class IndividualComponent implements OnInit, AfterContentInit {
       householdSize: +this.individualRegisterForm.get('householdSize').value || null,
       sendEmailMatchNotifications: this.individualRegisterForm.get('sendEmailMatchNotifications').value,
       matchRadius: this.individualRegisterForm.get('deliveryOrPickupRadius').value,
-      sendEmailMessageNotifications: this.individualRegisterForm.get('sendEmailMatchNotifications').value
+      sendEmailMessageNotifications: this.individualRegisterForm.get('sendEmailMatchNotifications').value,
     };
 
     if (!this._isRegistering && this.userProfile) {

@@ -62,7 +62,7 @@ Usage Notes
   position: relative;
 
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     border: 0 solid transparent;
     transform: rotate(360deg);

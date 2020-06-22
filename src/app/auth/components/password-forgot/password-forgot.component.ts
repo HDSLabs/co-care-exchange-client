@@ -32,7 +32,7 @@ export class PasswordForgotComponent implements OnInit {
       const email = this.forgotPwFormGroup.get('email').value;
       const result = await this.authenticationService.forgetPassword(email);
       //console.log('DEBUG forget passwd result ', result);
-      
+
       this.passwordResponse = result;
       this.router.navigate(['/', RESET_PASSWORD_ROUTE], { queryParams: { email: email } });
     } catch (err) {

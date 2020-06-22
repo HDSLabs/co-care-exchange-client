@@ -10,7 +10,7 @@ export const routes: Routes = [
   {
     path: DASHBOARD_ROUTE,
     component: DashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'metrics',
@@ -20,8 +20,8 @@ export const routes: Routes = [
   {
     path: 'dashboard-item/:type/:id',
     component: DashboardItemContainerComponent,
-    canActivate: [AuthGuard]
-  }
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({
