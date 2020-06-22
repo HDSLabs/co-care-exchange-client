@@ -1,77 +1,76 @@
 @import '../../styles/utilities.scss';
 
 :host {
+  p {
+    color: grey;
+    font-size: 0.9em;
+  }
+  h2 {
+    margin: 0;
+  }
+  mat-icon.back {
+    color: white;
+  }
+  mat-icon.arrows {
+    @extend .text-primary;
+  }
+  .center {
+    text-align: center;
+  }
+}
+.fb-container {
+  position: relative;
+  float: right;
+  width: 95%;
+  height: 225px;
+  background-color: white;
+  margin-top: 30px;
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
+  text-align: left;
+  border-radius: 4px;
+  box-sizing: border-box; /****** NEW *****/
+  max-height: 225px; /****** NEW *****/
+  overflow-y: scroll; /****** NEW *****/
+  overflow-x: hidden; /****** NEW *****/
+}
 
-    p {
-      color: grey;
-      font-size: .9em;
-    }
-    h2 {
-      margin: 0;
-    }
-    mat-icon.back {
-      color: white;
-    }
-    mat-icon.arrows { 
-      @extend .text-primary;
-    }
-    .center {
-        text-align: center;
-    }
-  }
-  .fb-container {
-    position: relative;
-    float: right;
-    width: 95%;
-    height: 225px;
-    background-color: white;
-    margin-top: 30px;
-    box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.1), 0 4px 4px 0 rgba(0, 0, 0, 0.15);
-    text-align: left;
-    border-radius: 4px;
-    box-sizing: border-box; /****** NEW *****/
-    max-height: 225px;   /****** NEW *****/
-    overflow-y: scroll;  /****** NEW *****/
-    overflow-x : hidden; /****** NEW *****/
- }
-
-  .food-banks {
-    margin: 0 0 2em 0;
-    list-style-type: none;
-    padding: 0;
-  }
-  .food-banks li {
-    cursor: pointer;
-    position: relative;
-    left: 0;
-    margin: .5em;
-    padding: .3em 0;
-    border-radius: 4px;
-  }
-  .food-banks li.highlight{
-    background-color: rgb(226, 231, 226)
-  }
-  .food-banks div.name {
-    color: rgb(144, 147, 148);
-    margin-left: .5em;
-    font-size: larger;
-  }
-  .food-banks div.address {
-    color: rgb(144, 147, 148);
-    margin-left: 1.5em;
-  }
-  .food-banks div.notes {
-    color: rgb(35, 138, 52);
-    margin-left: 1.5em;
-  }
-  ::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px;
-    height: 7px;
-    -webkit-overflow-scrolling: auto;
+.food-banks {
+  margin: 0 0 2em 0;
+  list-style-type: none;
+  padding: 0;
+}
+.food-banks li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  margin: 0.5em;
+  padding: 0.3em 0;
+  border-radius: 4px;
+}
+.food-banks li.highlight {
+  background-color: rgb(226, 231, 226);
+}
+.food-banks div.name {
+  color: rgb(144, 147, 148);
+  margin-left: 0.5em;
+  font-size: larger;
+}
+.food-banks div.address {
+  color: rgb(144, 147, 148);
+  margin-left: 1.5em;
+}
+.food-banks div.notes {
+  color: rgb(35, 138, 52);
+  margin-left: 1.5em;
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+  height: 7px;
+  -webkit-overflow-scrolling: auto;
 }
 ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0,0,0,.5);
-    box-shadow: 0 0 1px rgba(255,255,255,.5);
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
 }

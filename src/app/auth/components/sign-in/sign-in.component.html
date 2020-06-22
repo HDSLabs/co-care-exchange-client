@@ -1,20 +1,19 @@
 <section class="section tabcontent">
   <mat-card class="mat-elevation-z10 cardalign">
     <form [formGroup]="loginForm" class="login-form" (ngSubmit)="onLoginSubmit()">
-
       <mat-card-content>
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="Username" formControlName="username" type="text" required>
+          <input matInput placeholder="Username" formControlName="username" type="text" required />
         </mat-form-field>
 
         <mat-form-field class="login-full-width">
-          <input matInput placeholder="Password" formControlName="password" type="password" required>
+          <input matInput placeholder="Password" formControlName="password" type="password" required />
         </mat-form-field>
       </mat-card-content>
 
-      <mat-error class="error-message" *ngIf="error===true">
+      <mat-error class="error-message" *ngIf="error === true">
         <div *ngIf="errorMessage">
-          {{errorMessage}}
+          {{ errorMessage }}
         </div>
         <div *ngIf="!errorMessage">
           Invalid username or password
@@ -23,15 +22,12 @@
 
       <mat-progress-bar *ngIf="signingIn" mode="indeterminate" color="accent"></mat-progress-bar>
 
-
-      <div fxLayout="row" fxLayoutAlign="start center">
-
-      </div>
+      <div fxLayout="row" fxLayoutAlign="start center"></div>
       <div fxLayout="row">
         <a class="links resetpasswordalign" (click)="handleForgotPW()">Forgot your password?</a>
       </div>
 
-      <input type="submit" id="hidden-form-submit" style="display: none;">
+      <input type="submit" id="hidden-form-submit" style="display: none;" />
     </form>
   </mat-card>
 
@@ -45,9 +41,5 @@
     <a class="links pantry-link" (click)="handlePantry()">Food Pantries Near Me</a>
   </div>
 
-  <p class=" vertical-rhythm text-primary text-center">
-    Simplifying things that matter for <br>people who care.
-  </p>
-
-
+  <p class="vertical-rhythm text-primary text-center">Simplifying things that matter for <br />people who care.</p>
 </section>

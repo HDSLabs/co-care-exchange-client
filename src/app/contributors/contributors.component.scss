@@ -1,29 +1,28 @@
-
 p {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .close {
-    top: 4px;
-    position: absolute;
-    right: 4px;
-  }
+  top: 4px;
+  position: absolute;
+  right: 4px;
+}
 
 .section {
-    height: 100%;
+  height: 100%;
 }
 
 .scroll-container {
-    overflow: hidden;
-    position: absolute;
-    top: 100%;
-    left: 55%;
-    width: 350px;
-    margin-left: -200px;
-    text-align: center;
-    text-transform: uppercase;
-    color: #919191;
-    animation: 50s credits linear infinite;
+  overflow: hidden;
+  position: absolute;
+  top: 100%;
+  left: 55%;
+  width: 350px;
+  margin-left: -200px;
+  text-align: center;
+  text-transform: uppercase;
+  color: #919191;
+  animation: 50s credits linear infinite;
 }
 
 .contributor-group {

@@ -13,13 +13,16 @@ import { WelcomePageComponent } from './components/welcome-page/welcome.componen
 import { RegistrationModule } from './components/registration/registration.module';
 
 @NgModule({
-  declarations: [
-    PasswordForgotComponent,
-    PasswordResetComponent,
-    SignInComponent,    
-    ValidateEmailComponent,
-    WelcomePageComponent
+  declarations: [PasswordForgotComponent, PasswordResetComponent, SignInComponent, ValidateEmailComponent, WelcomePageComponent],
+  imports: [
+    CommonModule,
+    AuthRoutingModule,
+    SharedModule,
+    CustomMaterialModule,
+    ReactiveFormsModule,
+    FormsModule,
+    FlexLayoutModule,
+    RegistrationModule,
   ],
-  imports: [CommonModule, AuthRoutingModule, SharedModule, CustomMaterialModule, ReactiveFormsModule, FormsModule, FlexLayoutModule, RegistrationModule],
 })
 export class AuthModule {}

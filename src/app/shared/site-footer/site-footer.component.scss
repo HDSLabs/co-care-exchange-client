@@ -1,24 +1,24 @@
 @import '../../../styles/utilities.scss';
 
-.footer-container {   
-    background-color: #fafafa;
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;    
-    height: 75px;
-    text-align: center;
-    z-index: 10000;
+.footer-container {
+  background-color: #fafafa;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 75px;
+  text-align: center;
+  z-index: 10000;
 
-    a {
-      cursor: pointer;
+  a {
+    cursor: pointer;
 
-      &.active {
-        mat-icon {
-          @extend .text-primary;
-        }
+    &.active {
+      mat-icon {
+        @extend .text-primary;
       }
     }
+  }
 }
 
 mat-icon {

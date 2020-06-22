@@ -4,16 +4,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-contributors',
   templateUrl: './contributors.component.html',
-  styleUrls: ['./contributors.component.scss']
+  styleUrls: ['./contributors.component.scss'],
 })
 export class ContributorsComponent implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(
-    private router: Router
-  ) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   backToAccount() {
     this.router.navigate(['/account']);

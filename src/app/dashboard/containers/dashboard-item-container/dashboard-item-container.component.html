@@ -1,9 +1,19 @@
 <section *ngIf="vm$ | async as vm">
-    <div [ngSwitch]="params.type" *ngIf="vm.itemDetails; else loading">
-        <app-item-share *ngSwitchCase="'share'" (updateItem)="handleUpdateItem($event)" (createNote)="handleNewNote($event)" [vm]="vm"></app-item-share>
-        <app-item-request *ngSwitchCase="'request'" (updateItem)="handleUpdateItem($event)" (createNote)="handleNewNote($event)" [vm]="vm"></app-item-request>
-    </div> 
-    <ng-template #loading>
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    </ng-template>
+  <div [ngSwitch]="params.type" *ngIf="vm.itemDetails; else loading">
+    <app-item-share
+      *ngSwitchCase="'share'"
+      (updateItem)="handleUpdateItem($event)"
+      (createNote)="handleNewNote($event)"
+      [vm]="vm"
+    ></app-item-share>
+    <app-item-request
+      *ngSwitchCase="'request'"
+      (updateItem)="handleUpdateItem($event)"
+      (createNote)="handleNewNote($event)"
+      [vm]="vm"
+    ></app-item-request>
+  </div>
+  <ng-template #loading>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </ng-template>
 </section>

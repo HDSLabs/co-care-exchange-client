@@ -14,7 +14,7 @@ const Organizations = gql`
 `;
 
 const UserOrganization = gql`
-  query getUserOrganization($id: ID!){
+  query getUserOrganization($id: ID!) {
     organizations(where: { id: $id }) {
       id
       name

@@ -63,7 +63,7 @@ export class ItemShareComponent implements OnInit, OnDestroy {
         filter((val) => val && val !== ''),
         takeUntil(this.stop$)
       )
-      .subscribe((val) => (this.currentNoteVal = val));    
+      .subscribe((val) => (this.currentNoteVal = val));
   }
 
   ngOnDestroy() {
@@ -91,7 +91,7 @@ export class ItemShareComponent implements OnInit, OnDestroy {
   //       reason: 'Sharer confirmed the delivery of the items',
   //     },
   //   });
-  // } 
+  // }
 
   onConfirmFulfillemnt(agreement: Agreement) {
     this.updateItem.emit({
@@ -104,7 +104,7 @@ export class ItemShareComponent implements OnInit, OnDestroy {
     });
   }
 
-  onConfirmMatch(){    
+  onConfirmMatch() {
     this.updateItem.emit({
       orderUpdate: this.vm.itemDetails,
       updates: {
@@ -118,10 +118,10 @@ export class ItemShareComponent implements OnInit, OnDestroy {
     this.createNote.emit({ noteBody: this.currentNoteVal, itemId: this.vm.itemDetails.itemId, imageUrl: null });
     this.orderNoteFC.patchValue('');
   }
-  
+
   navigateBackToDashboard() {
     //if (!this.modalVisible) {
-      this.router.navigate(['/dashboard']);
+    this.router.navigate(['/dashboard']);
     //} else {
     //  return false;
     //}

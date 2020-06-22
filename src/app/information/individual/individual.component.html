@@ -20,12 +20,10 @@
       </mat-form-field>
 
       <div *ngIf="userProfile?.organization" class="orgtext">
-        <label class="orglabel" (click)="onOrgInfoClick()">
-          Organization:<mat-icon class="helpicon">help</mat-icon>
-        </label>
-        <br>
+        <label class="orglabel" (click)="onOrgInfoClick()"> Organization:<mat-icon class="helpicon">help</mat-icon> </label>
+        <br />
         <label>
-          {{userProfile.organization}}
+          {{ userProfile.organization }}
         </label>
       </div>
 
@@ -76,11 +74,11 @@
 
       <mat-form-field class="login-full-width">
         <label>
-          <input matInput placeholder="State" formControlName="state" type="text" minlength="2" maxlength="2"
-            required />
+          <input matInput placeholder="State" formControlName="state" type="text" minlength="2" maxlength="2" required />
         </label>
         <mat-error
-          *ngIf="individualRegisterForm.get('state').hasError('required') || individualRegisterForm.get('state').hasError('minlength')">
+          *ngIf="individualRegisterForm.get('state').hasError('required') || individualRegisterForm.get('state').hasError('minlength')"
+        >
           State 2-digit abbreviation is required
         </mat-error>
       </mat-form-field>
@@ -96,19 +94,28 @@
 
       <mat-form-field class="login-full-width">
         <label>
-          <input matInput placeholder="Delivery or Pickup Radius (in miles, 1 to 50)"
-            formControlName="deliveryOrPickupRadius" type="number" required />
+          <input
+            matInput
+            placeholder="Delivery or Pickup Radius (in miles, 1 to 50)"
+            formControlName="deliveryOrPickupRadius"
+            type="number"
+            required
+          />
         </label>
-        <mat-error *ngIf="individualRegisterForm.get('deliveryOrPickupRadius').hasError('min') ||
-          individualRegisterForm.get('deliveryOrPickupRadius').hasError('max') ||
-          individualRegisterForm.get('deliveryOrPickupRadius').hasError('pattern')">
+        <mat-error
+          *ngIf="
+            individualRegisterForm.get('deliveryOrPickupRadius').hasError('min') ||
+            individualRegisterForm.get('deliveryOrPickupRadius').hasError('max') ||
+            individualRegisterForm.get('deliveryOrPickupRadius').hasError('pattern')
+          "
+        >
           Delivery or pickup radius (in miles, 1 to 50, whole number only) is required
         </mat-error>
       </mat-form-field>
 
-      <mat-checkbox class="check-box-mb-20" color="primary" formControlName="sendEmailMatchNotifications">Send me email notifications when I match
+      <mat-checkbox class="check-box-mb-20" color="primary" formControlName="sendEmailMatchNotifications"
+        >Send me email notifications when I match
       </mat-checkbox>
-
     </div>
 
     <mat-progress-bar *ngIf="isRegistering" mode="indeterminate" color="accent"></mat-progress-bar>

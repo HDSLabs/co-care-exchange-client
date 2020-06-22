@@ -100,7 +100,7 @@ export class OrganizationComponent implements OnInit, AfterContentInit {
       organizationId: this.organizationId,
       sendEmailMatchNotifications: this.organizationForm.get('sendEmailMatchNotifications').value,
       matchRadius: this.organizationForm.get('deliveryOrPickupRadius').value,
-      sendEmailMessageNotifications: this.organizationForm.get('sendEmailMatchNotifications').value
+      sendEmailMessageNotifications: this.organizationForm.get('sendEmailMatchNotifications').value,
     };
 
     if (!this._isRegistering && this.userProfile) {

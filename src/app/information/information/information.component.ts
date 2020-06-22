@@ -68,7 +68,6 @@ export class InformationComponent implements OnInit {
     console.log('DEBUG create user profile ', payload);
     payload.userInput.matchRadius = payload.userInput.dropOffRadius;
     payload.userInput.sendEmailMessageNotifications = payload.userInput.sendEmailMatchNotifications;
-    
 
     this.isRegistering = true;
     const profile = payload.userInput;

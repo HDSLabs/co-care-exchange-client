@@ -3,10 +3,8 @@ import { CommonModule } from '@angular/common';
 import { configureAws } from './config/awsconfig';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
-  declarations: []
+  imports: [CommonModule],
+  declarations: [],
 })
 export class AwsCognitoModule {
   constructor() {

@@ -12,43 +12,45 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dashboard-item-container',
   templateUrl: './dashboard-item-container.component.html',
-  styleUrls: ['./dashboard-item-container.component.scss']
+  styleUrls: ['./dashboard-item-container.component.scss'],
 })
 export class DashboardItemContainerComponent implements OnInit, OnDestroy {
   params: any;
 
   stop$ = new Subject();
   vm$: Observable<IItemDetailState> = this.itemDetailsService.store$;
-  populatedVm$: Observable<IItemDetailState> = this.vm$.pipe(filter(d => !!d.itemDetails));
+  populatedVm$: Observable<IItemDetailState> = this.vm$.pipe(filter((d) => !!d.itemDetails));
 
   constructor(
-    public route: ActivatedRoute
-    , private router: Router
-    , private itemDetailsService: ItemDetailsService
-    , private toastrService: ToastrService
-  ) { }
+    public route: ActivatedRoute,
+    private router: Router,
+    private itemDetailsService: ItemDetailsService,
+    private toastrService: ToastrService
+  ) {}
 
   ngOnInit() {
-    this.route.params.pipe(
-      takeUntil(this.stop$),
-      tap(params => {
-        this.params = params;
-        const itemId = params && params.id ? params.id : null;
-        if (itemId) {
-          this.itemDetailsService.getItemInitial(itemId);
-        } else {
-          this.router.navigate(['/dashboard']);
-        }
-      })
-    ).subscribe();
+    this.route.params
+      .pipe(
+        takeUntil(this.stop$),
+        tap((params) => {
+          this.params = params;
+          const itemId = params && params.id ? params.id : null;
+          if (itemId) {
+            this.itemDetailsService.getItemInitial(itemId);
+          } else {
+            this.router.navigate(['/dashboard']);
+          }
+        })
+      )
+      .subscribe();
 
     timer(5000, 5000)
       .pipe(
-        takeUntil(this.stop$)
-        , withLatestFrom(this.populatedVm$)
-        , map(([_timer, vm]) => vm.itemDetails)
-        , tap((itemDetails) => this.itemDetailsService.refreshItemDetail(itemDetails.itemId))
-        , catchError(_error => {
+        takeUntil(this.stop$),
+        withLatestFrom(this.populatedVm$),
+        map(([_timer, vm]) => vm.itemDetails),
+        tap((itemDetails) => this.itemDetailsService.refreshItemDetail(itemDetails.itemId)),
+        catchError((_error) => {
           this.router.navigate(['/dashboard']);
           return of(null);
         })
@@ -61,26 +63,21 @@ export class DashboardItemContainerComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  handleUpdateItem(payload: { orderUpdate: Agreement, updates: Partial<OrderChangeInput> }) {
-    this.itemDetailsService.updateOrder(payload.orderUpdate, payload.updates)
-      .pipe(
-        takeUntil(this.stop$)
-        , catchError(this.handleError)
-      ).subscribe();
+  handleUpdateItem(payload: { orderUpdate: Agreement; updates: Partial<OrderChangeInput> }) {
+    this.itemDetailsService
+      .updateOrder(payload.orderUpdate, payload.updates)
+      .pipe(takeUntil(this.stop$), catchError(this.handleError))
+      .subscribe();
   }
 
   handleNewNote(newNote: Pick<ICreateOrderNoteInput, 'noteBody' | 'itemId' | 'imageUrl'>) {
-    this.itemDetailsService.createOrderNote(newNote)
-      .pipe(
-        takeUntil(this.stop$)
-        , catchError(this.handleError)
-      ).subscribe();
+    this.itemDetailsService.createOrderNote(newNote).pipe(takeUntil(this.stop$), catchError(this.handleError)).subscribe();
   }
 
   private handleError(err) {
     console.error('an error occurred updating the order: ', err);
     this.toastrService.error('An unexpected error has occurred updating the item. Please try again later.', null, {
-      positionClass: 'toast-top-center'
+      positionClass: 'toast-top-center',
     });
     return of(null);
   }

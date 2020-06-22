@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavbarService {
-
   public login = new ReplaySubject(1);
 
-  constructor () {
-  }
+  constructor() {}
 
-  setLogin ( success: boolean ) {
+  setLogin(success: boolean) {
     this.login.next(success);
   }
 }

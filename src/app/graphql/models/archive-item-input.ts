@@ -1,5 +1,5 @@
 export interface IArchiveItemInput {
-    clientMutationId: string;
-    itemId: string;
-    userId: string;
+  clientMutationId: string;
+  itemId: string;
+  userId: string;
 }

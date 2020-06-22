@@ -1,40 +1,40 @@
 <div class="vertical-rhythm" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="column">
-        <h3 class="text-primary center">
-            Have any feedback?<br>
-            Get in touch with our team!<br>
-            <a class="link-accent" [href]="toAddress">support@care-exchange.org</a>
-        </h3>
-    </div>
+  <div fxLayout="column">
+    <h3 class="text-primary center">
+      Have any feedback?<br />
+      Get in touch with our team!<br />
+      <a class="link-accent" [href]="toAddress">support@care-exchange.org</a>
+    </h3>
+  </div>
 </div>
 
 <div class="vertical-rhythm" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="column">
-        <h3 class="text-primary center" (click)='openNewTab("https://www.cocareexchange.org/user-guide-v2/")'>
-            FAQs & How To Information
-        </h3>
-    </div>
+  <div fxLayout="column">
+    <h3 class="text-primary center" (click)="openNewTab('https://www.cocareexchange.org/user-guide-v2/')">
+      FAQs & How To Information
+    </h3>
+  </div>
 </div>
 
 <div class="vertical-rhythm" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="column">
-        <h3 class="text-primary center" (click)='openNewTab("https://www.paypal.me/careexchangeorg")'>
-            Donate to careexchangeorg<br>
-            <a class="link-accent">(paypal)</a>
-        </h3>
-    </div>
+  <div fxLayout="column">
+    <h3 class="text-primary center" (click)="openNewTab('https://www.paypal.me/careexchangeorg')">
+      Donate to careexchangeorg<br />
+      <a class="link-accent">(paypal)</a>
+    </h3>
+  </div>
 </div>
 
 <div class="vertical-rhythm" fxLayout="row" fxLayoutAlign="center center">
-    <div fxLayout="column">
-        <h3 class="text-primary center" (click)='openNewTab("https://www.cdc.gov/")'>
-            Center for Disease Control
-        </h3>
-    </div>
+  <div fxLayout="column">
+    <h3 class="text-primary center" (click)="openNewTab('https://www.cdc.gov/')">
+      Center for Disease Control
+    </h3>
+  </div>
 </div>
 
 <div class="vertical-rhythm" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-fab color="primary" [routerLink]="['/account']">
-        <mat-icon class="back">arrow_back</mat-icon>
-    </button>
+  <button mat-fab color="primary" [routerLink]="['/account']">
+    <mat-icon class="back">arrow_back</mat-icon>
+  </button>
 </div>

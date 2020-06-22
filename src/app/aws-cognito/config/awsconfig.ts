@@ -71,8 +71,8 @@ export const configureAws = (name: string) => {
       AWSS3: {
         bucket: 'care-exchange-images', //REQUIRED -  Amazon S3 bucket
         region: 'us-west-2', //OPTIONAL -  Amazon service region
-      }
-    }
+      },
+    },
   });
   Amplify.Logger.LOG_LEVEL = 'DEBUG';
 };
