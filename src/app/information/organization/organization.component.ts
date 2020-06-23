@@ -99,7 +99,7 @@ export class OrganizationComponent implements OnInit, AfterContentInit {
       phoneNumber: this.organizationForm.get('phone').value,
       organizationId: this.organizationId,
       sendEmailMatchNotifications: this.organizationForm.get('sendEmailMatchNotifications').value,
-      matchRadius: this.organizationForm.get('deliveryOrPickupRadius').value,
+      matchRadius: this.organizationForm.get('matchRadius').value,
       sendEmailMessageNotifications: this.organizationForm.get('sendEmailMatchNotifications').value
     };
 
