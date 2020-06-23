@@ -5,7 +5,6 @@ import { AuthenticationService } from '../../core/services/cce/authentication.se
 import { UserService } from '../../core/services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileInformation } from '../models/info-create.model';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-register',
@@ -65,14 +64,14 @@ export class InformationComponent implements OnInit {
   }
 
   onInfoSubmit(payload: UserProfileInformation) {
-    console.log('DEBUG create user profile ', payload);
+    //console.log('DEBUG create user profile ', payload);
     payload.userInput.matchRadius = payload.userInput.dropOffRadius;
     payload.userInput.sendEmailMessageNotifications = payload.userInput.sendEmailMatchNotifications;
     
 
     this.isRegistering = true;
     const profile = payload.userInput;
-    console.log('DEBUG profile to save ', profile);
+    //console.log('DEBUG profile to save ', profile);
     this.userService
       .saveUser(profile)
       .pipe(finalize(() => (this.isRegistering = false)))
