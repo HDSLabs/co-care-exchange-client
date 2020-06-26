@@ -70,13 +70,13 @@ export class ItemShareComponent implements OnInit, OnDestroy {
     });
   }
 
-  onConfirmDropOff(agreement: Agreement) {
+  onConfirmFulfillemnt(agreement: Agreement) {
     this.updateItem.emit({
       orderUpdate: agreement,
       updates: {
         shareId: agreement.shareId,
         status: Status.OrderFulfilled,
-        reason: 'Sharer ' + this.userProfile.firstName + ' ' + this.userProfile.lastName + ' confirmed the delivery of the items',
+        reason: 'Sharer ' + this.userProfile.firstName + ' ' + this.userProfile.lastName + ' confirmed the fulfillment of the match',
       },
     });
   }
