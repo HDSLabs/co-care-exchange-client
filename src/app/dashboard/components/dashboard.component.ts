@@ -138,6 +138,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   toggleRowState(row: Agreement, animationState: 'rowOpen'|'rowClosed'|'') {
+    if(row.status != this.status.OrderCancelled && row.status != this.status.OrderFulfilled){return;}
+
     row.rowState = animationState;
     /**
      * dashboard service polling should probably be refactored, but this works around an issue
