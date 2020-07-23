@@ -53,7 +53,7 @@ export class ItemRequestComponent implements OnInit, OnDestroy {
     this.stop$.complete();
   }
 
-  onConfirmFulfillemnt(agreement: Agreement) {
+  onConfirmFulfillment(agreement: Agreement) {
     this.updateItem.emit({
       orderUpdate: agreement,
       updates: {
