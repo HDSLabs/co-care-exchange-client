@@ -133,3 +133,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 * Haile moves it to `Ready for Master` column
 * merge branch into `rc/<current-candidate>` (which was cut from master)
 * merge `rc/<current-candidate>` branch into `master`
+
+## Deployment
+
+Deployments are setup through AWS CodeBuild, which pushes to S3
+
+`canary` pushes to [canary](https://canary-app.cocareexchange.org/welcome)
+`acceptance` pushes to [acceptance](https://acceptance-app.cocareexchange.org/dashboard)
+`master` pushes to [production](https://app.cocareexchange.org/)
+
+Following RC 1.9.0, all graphql code should leverage the graphql [codegen](https://graphql-code-generator.com/docs/getting-started/codegen-config) we have adopted. See the [graphQL readme](GRAPHQL.md) for further instruction regarding deployment and use
