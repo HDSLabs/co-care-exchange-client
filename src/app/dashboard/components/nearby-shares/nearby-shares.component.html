@@ -1,0 +1,51 @@
+<div *ngIf="vm$ | async as vm">
+  <div [ngSwitch]="vm.state">
+    <!-- loader -->
+    <div *ngSwitchCase="'loading'">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <!-- loaded -->
+    <div *ngSwitchCase="'done'">
+      <div *ngIf="vm.shares && vm.shares.length; else empty">
+        <div class="cce-select-wrapper">
+          <mat-form-field class="orgselectwidth">
+            <mat-label>Filter</mat-label>
+            <mat-select [formControl]="filter" class="itemborder" panelClass="cce-select-panel">
+              <mat-option value="individual">Individuals Only</mat-option>
+              <mat-option value="showAllOrganization">Organizations Only</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div *ngFor="let share of vm.shares" class="nearby-list-item" fxLayout="row"
+          fxLayoutAlign="space-between center" [routerLink]="['/nearby-items', share.itemId]">
+
+          <div fxLayout="column" fxLayoutAlign="center flex-start">
+            <div class="name">{{ share.name }} </div>
+            <div class="multiplier" fxLayout="row" fxLayoutAlign="center center">
+              <span>x</span><span>{{ share.quantity }}</span></div>
+          </div>
+          <div><i>{{ share.createdOn | date }}</i></div>
+        </div>
+      </div>
+
+
+
+
+      <ng-template #empty>
+        <div class="cce-select-wrapper">
+          <mat-form-field class="orgselectwidth">
+            <mat-label>Filter</mat-label>
+            <mat-select [formControl]="filter" class="itemborder" panelClass="cce-select-panel">
+              <mat-option value="individual">Individuals Only</mat-option>
+              <mat-option value="showAllOrganization">Organizations Only</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="empty">
+          No nearby shares at this time...
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

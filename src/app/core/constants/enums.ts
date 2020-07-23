@@ -5,3 +5,8 @@ export enum Status {
     , OrderFulfilled = 'Fulfilled'
     , OrderCancelled = 'Cancelled'
 }
+
+export enum UIState {
+    Loading = 'loading'
+    , Done = 'done'
+}

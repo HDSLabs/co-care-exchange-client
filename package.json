@@ -7,7 +7,8 @@
     "build": "node --max_old_space_size=4096 node_modules/@angular/cli/bin/ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "generate": "graphql-codegen $GRAPHQL_API_URI $GRAPHQL_API_KEY"
   },
   "private": true,
   "dependencies": {
@@ -58,6 +59,10 @@
     "@angular/compiler-cli": "^8.2.14",
     "@angular/language-service": "^8.2.14",
     "@babel/compat-data": "~7.8.0",
+    "@graphql-codegen/cli": "^1.15.0",
+    "@graphql-codegen/typescript": "^1.15.0",
+    "@graphql-codegen/typescript-apollo-angular": "^1.15.1",
+    "@graphql-codegen/typescript-operations": "^1.15.0",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^8.9.5",

@@ -29,6 +29,9 @@ import { PromptModule } from './prompts/prompt.module';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { AmplifyAngularModule, AmplifyService } from 'aws-amplify-angular';
 import { ContributorsComponent } from './contributors/contributors.component';
+import { NearbyItemsComponent } from './dashboard/components/nearby-items/nearby-items.component';
+import { NearbyRequestsComponent } from './dashboard/components/nearby-requests/nearby-requests.component';
+import { NearbySharesComponent } from './dashboard/components/nearby-shares/nearby-shares.component';
 
 @NgModule({
   imports: [
@@ -55,7 +58,7 @@ import { ContributorsComponent } from './contributors/contributors.component';
     ToastrModule.forRoot(),
     LayoutModule,
   ],
-  declarations: [AppComponent, ContactUsComponent, AccountComponent, ResourcesComponent, PopupDialogComponent, ContributorsComponent],
+  declarations: [AppComponent, ContactUsComponent, AccountComponent, ResourcesComponent, PopupDialogComponent, ContributorsComponent, NearbyItemsComponent, NearbyRequestsComponent, NearbySharesComponent],
   providers: [
     AmplifyService,
     NavbarService,

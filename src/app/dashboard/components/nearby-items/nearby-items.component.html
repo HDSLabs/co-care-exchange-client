@@ -1,0 +1,20 @@
+<app-site-header></app-site-header>
+
+<section class="section tight">
+    <div class="cce-tabbed-nav">
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="Nearby Requests">
+                <ng-template matTabContent>
+                    <app-nearby-requests></app-nearby-requests>
+                </ng-template>
+            </mat-tab>
+            <mat-tab label="Nearby Shares">
+                <ng-template matTabContent>
+                    <app-nearby-shares></app-nearby-shares>
+                </ng-template>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</section>
+
+<app-site-footer></app-site-footer>

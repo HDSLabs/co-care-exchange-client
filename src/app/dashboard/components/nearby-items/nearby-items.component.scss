@@ -1,0 +1,49 @@
+.section {
+  .mat-tab-group {
+    margin-bottom: 80px;
+
+    .mat-form-field.mat-form-field-type-mat-select {
+      width: 100%;
+    }
+  }
+}
+
+.cce-select-wrapper {
+  margin-top: 2em;
+}
+
+.nearby-list-item {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  color: #696969;
+  font-weight: 600;
+  font-size: 1em;
+  margin: 4px 0;
+  padding: 10px 16px 8px 16px;
+
+  i {
+    font-weight: lighter;
+  }
+
+  .multiplier {
+    font-size: 0.85em;
+  }
+}
+
+.empty {
+  color: #696969;
+  font-size: 1em;
+  margin-top: 1em;
+}
+
+.orgselectwidth {
+  width: 150px;
+}
+
+.itemborder {
+  border-radius: 8px;
+  border: 1px solid #ccc !important;
+  padding: 5px;
+  font-size: 0.9em;
+  margin: auto;
+}

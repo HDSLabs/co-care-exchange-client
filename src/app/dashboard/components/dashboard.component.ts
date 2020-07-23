@@ -12,6 +12,8 @@ import { DashboardService } from 'src/app/core/services/cce/dashboard.service';
 import { Status } from 'src/app/core/constants/enums';
 import { Agreement } from './models/agreement';
 import { ConfirmDeleteRequestComponent } from './confirm-delete-request/confirm-delete-request.component';
+import { CceSDK } from 'src/app/graphql/generatedSDK';
+import { UserService } from 'src/app/core/services/user.service';
 
 interface IDashboardGrouping {
   createdBy: string;
@@ -45,7 +47,7 @@ interface IDashboardViewModel {
 export class DashboardComponent implements OnInit, OnDestroy {
   vm$: Observable<IDashboardViewModel>;
   isAlive: boolean;
-  rowState: 'rowOpen'|'rowClosed'|'';
+  rowState: 'rowOpen' | 'rowClosed' | '';
 
   filter = new FormControl('');
   filter$: Observable<string>;
@@ -62,9 +64,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     private dashboardService: DashboardService,
     private toastrService: ToastrService,
     private breakpointObserver: BreakpointObserver,
+    private userSvc: UserService,
+    private api: CceSDK,
   ) {
     this.breakpointObserver.observe([Breakpoints.Web])
-      .subscribe(({ matches: isWeb}) => {
+      .subscribe(({ matches: isWeb }) => {
         this.isWeb = isWeb;
       });
   }
@@ -95,7 +99,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   createGroupedEntries(agreements: Agreement[]) {
-    const grouped: {[key: string]: Agreement[]} = groupBy(agreements, 'userDisplayName');
+    const grouped: { [key: string]: Agreement[] } = groupBy(agreements, 'userDisplayName');
     return Object.entries(grouped).map(([name, items]) => {
       return {
         createdBy: name,
@@ -113,31 +117,39 @@ export class DashboardComponent implements OnInit, OnDestroy {
     event.stopPropagation();
 
     const ref = this.dialog.open(ConfirmDeleteRequestComponent, {
-        width: '300px',
-        data: item,
-      });
+      width: '300px',
+      data: item,
+    });
 
-      ref
-        .afterClosed()
-        .pipe(take(1))
-        .subscribe((results) => {
-          if (results === 'yep') {
-            this.dashboardService.archiveItem(item.itemId)
-              .pipe(
-                takeUntil(this.destroy$),
-                catchError(this.handleError), 
-                map((response: any) => {
-                  console.log('deleteItem', response);
-                  this.dashboardService.startPolling();
-                })
-              ).subscribe();
-          } else {
-            return;
-          }
-        });
+    ref
+      .afterClosed()
+      .pipe(take(1))
+      .subscribe((results) => {
+        const userProfile = this.userSvc.getCurrentUserProfile();
+        if (results === 'yep') {
+          this.api.archiveItem({
+            input: {
+              itemId: item.itemId,
+              userId: userProfile.id,
+              clientMutationId: '3455555'
+            }
+          })
+            // this.dashboardService.archiveItem(item.itemId)
+            .pipe(
+              takeUntil(this.destroy$),
+              catchError(this.handleError),
+              map((response: any) => {
+                console.log('deleteItem', response);
+                this.dashboardService.startPolling();
+              })
+            ).subscribe();
+        } else {
+          return;
+        }
+      });
   }
 
-  toggleRowState(row: Agreement, animationState: 'rowOpen'|'rowClosed'|'') {
+  toggleRowState(row: Agreement, animationState: 'rowOpen' | 'rowClosed' | '') {
     row.rowState = animationState;
     /**
      * dashboard service polling should probably be refactored, but this works around an issue
@@ -194,7 +206,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  showTrashClick(show: boolean){
+  showTrashClick(show: boolean) {
     this.showTrash = show
   }
 }

@@ -1,0 +1,18 @@
+query NearbyShares($filterOption: String, $userId: ID!) {
+  nearbyShares(filterOption: $filterOption, userId: $userId) {
+    shared {
+      itemId
+      name
+      unitOfIssue
+      quantity
+      details
+      statusDisplay
+      status
+      name
+      details
+      itemId
+      userDisplayName
+      createdOn
+    }
+  }
+}

@@ -1,0 +1,32 @@
+query Dashboard($userId: ID!, $filterOption: String) {
+  dashboard(userId: $userId, filterOption: $filterOption) {
+    requested {
+      itemId
+      name
+      unitOfIssue
+      quantity
+      details
+      statusDisplay
+      status
+      name
+      details
+      itemId
+      userDisplayName
+      createdOn
+    }
+    shared {
+      itemId
+      name
+      unitOfIssue
+      quantity
+      details
+      statusDisplay
+      status
+      name
+      details
+      itemId
+      userDisplayName
+      createdOn
+    }
+  }
+}

@@ -1,0 +1,15 @@
+schema:
+    - ${GRAPHQL_API_URI}:
+        headers:
+            x-api-key: ${GRAPHQL_API_KEY}
+documents: src/**/*.graphql
+config:
+    serviceName: "CceSDK"
+    sdkClass: true
+    serviceProvidedInRoot: true
+generates:
+    ./src/app/graphql/generatedSDK.ts:
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-apollo-angular

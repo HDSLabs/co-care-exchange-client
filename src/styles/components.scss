@@ -93,3 +93,53 @@ h2 {
 .check-box-mb-20 {
   margin-bottom: 20px;
 }
+
+.cce-select-wrapper {
+  color: #696969;
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-select-value, .cce-select-panel {
+    color: #696969;
+    font-weight: 600;
+  }
+
+  .mat-select-arrow {
+    color: mat-color(map-get($colorado-care-exchange-theme, primary));
+  }
+
+  .mat-form-field-appearance-outline {
+    .mat-form-field-outline-start, .mat-form-field-outline-gap, .mat-form-field-outline-end {
+      color: #696969;
+    }
+  }
+}
+
+.cce-tabbed-nav {
+  .mat-tab-label-content {
+    color: mat-color(map-get($colorado-care-exchange-theme, primary));
+    font-size: 1.25em;
+  }
+
+  .mat-tab-label {
+    opacity: .7;
+
+    &-active {
+      opacity: 1;
+    }
+  }
+
+  .mat-tab-header-pagination-controls-enabled {
+    .mat-tab-header-pagination {
+      display: none;
+    }
+  }
+
+}
+
+.empty {
+  color: #696969;
+  font-size: 1em;
+  margin-top: 1em;
+}

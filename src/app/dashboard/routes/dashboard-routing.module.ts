@@ -5,12 +5,24 @@ import { MetricsComponent } from '../components/metrics/metrics.component';
 import { AuthGuard } from '../../core/guards/auth.guard';
 import { DASHBOARD_ROUTE } from '../../core/constants/routes';
 import { DashboardItemContainerComponent } from '../containers/dashboard-item-container/dashboard-item-container.component';
+import { NearbyItemsComponent } from '../components/nearby-items/nearby-items.component';
+import { NearbyItemComponent } from '../components/nearby-item/nearby-item.component';
 
 export const routes: Routes = [
   {
     path: DASHBOARD_ROUTE,
     component: DashboardComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'nearby-items',
+    component: NearbyItemsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'nearby-items/:id',
+    component: NearbyItemComponent,
+    canActivate: [AuthGuard],
   },
   {
     path: 'metrics',
@@ -28,4 +40,4 @@ export const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class DashboardRoutingModule {}
+export class DashboardRoutingModule { }

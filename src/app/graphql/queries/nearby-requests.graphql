@@ -1,0 +1,18 @@
+query NearbyRequests($filterOption: String, $userId: ID!) {
+  nearbyRequests(filterOption: $filterOption, userId: $userId) {
+    requested {
+      itemId
+      name
+      unitOfIssue
+      quantity
+      details
+      statusDisplay
+      status
+      name
+      details
+      itemId
+      userDisplayName
+      createdOn
+    }
+  }
+}

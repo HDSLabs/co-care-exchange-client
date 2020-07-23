@@ -1,0 +1,6 @@
+mutation ArchiveItem($input: ArchiveItemInput!) {
+  archiveItem(input: $input) {
+    clientMutationId
+    itemId
+  }
+}

@@ -1,0 +1,5 @@
+mutation CreateOrderNote($input: CreateOrderNoteInput!) {
+  createOrderNote(input: $input) {
+    clientMutationId
+  }
+}
