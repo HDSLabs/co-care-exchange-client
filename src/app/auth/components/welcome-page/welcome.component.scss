@@ -2,38 +2,6 @@
   padding-top: 20px;
 }
 
-::ng-deep .mat-tab-label {
-  background-color: #29b6f6 !important;
-  color: #e0e0de !important;
-  opacity: 1 !important;
-  font-weight: 100 !important;
-}
-
-::ng-deep .mat-tab-group.mat-primary .mat-ink-bar,
-.mat-tab-nav-bar.mat-primary .mat-ink-bar {
-  background-color: #ffffff !important;
-}
-
-::ng-deep .mat-tab-label-active {
-  color: #ffffff !important;
-  font-weight: 600 !important;
-}
-
-::ng-deep .mat-tab-labels {
-  background-color: #29b6f6 !important;
-}
-
 .tabcontent {
   padding-top: 50px;
-}
-
-.backgroundcolor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  min-height: 300px;
-  background-color: #29b6f6;
-  z-index: -1;
 }
