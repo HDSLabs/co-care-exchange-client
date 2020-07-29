@@ -12,18 +12,14 @@
     </div>
 </div>
 
-<div class="tab-container">
+<div class="cce-tabbed-nav is-blue is-hoisted">
     <mat-tab-group mat-align-tabs="center" [(selectedIndex)]="selectedTab" (selectedTabChange)="tabclick($event)">
-        <mat-tab label="Log In" class="tabgroupcolor"> 
+        <mat-tab label="Log In"> 
             <app-sign-in></app-sign-in>
         </mat-tab>
     
-        <mat-tab label="Sign Up" class="tabgroupcolor">    
+        <mat-tab label="Sign Up">    
             <app-register></app-register>
         </mat-tab>
     </mat-tab-group>
 </div>
-
-
-
-<!-- <div class="backgroundcolor"></div> -->

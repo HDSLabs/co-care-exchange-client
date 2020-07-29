@@ -1175,6 +1175,7 @@ export type User = {
   householdSize?: Maybe<Scalars['Short']>;
   id: Scalars['ID'];
   lastName?: Maybe<Scalars['String']>;
+  lastSeenOn?: Maybe<Scalars['DateTime']>;
   latitude?: Maybe<Scalars['Float']>;
   longitude?: Maybe<Scalars['Float']>;
   matchRadius: Scalars['Short'];
@@ -1350,6 +1351,18 @@ export type UserFilter = {
   lastName_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
   lastName_not_starts_with?: Maybe<Scalars['String']>;
   lastName_starts_with?: Maybe<Scalars['String']>;
+  lastSeenOn?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_gt?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_gte?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  lastSeenOn_lt?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_lte?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_not?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_not_gt?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_not_gte?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_not_in?: Maybe<Array<Maybe<Scalars['DateTime']>>>;
+  lastSeenOn_not_lt?: Maybe<Scalars['DateTime']>;
+  lastSeenOn_not_lte?: Maybe<Scalars['DateTime']>;
   latitude?: Maybe<Scalars['Float']>;
   latitude_gt?: Maybe<Scalars['Float']>;
   latitude_gte?: Maybe<Scalars['Float']>;

@@ -24,16 +24,6 @@
     }
   }
 
-  // &-inner {
-  //   @include breakpoint(gtHandset) {
-  //     width: 45vw;
-  //   }
-  //   h1 {
-  //     text-transform: uppercase;
-  //     font-size: 1.8rem;
-  //   }
-  // }
-
   &:before {
     content: '';
     position: absolute;
@@ -43,11 +33,6 @@
     left: 0;
     background: mat-color(map-get($colorado-care-exchange-theme, primary));
   }
-}
-
-.tab-container {
-  position: relative;
-  bottom: 145px;
 }
 
 .section {
@@ -100,7 +85,8 @@ h2 {
     width: 100%;
   }
 
-  .mat-select-value, .cce-select-panel {
+  .mat-select-value,
+  .cce-select-panel {
     color: #696969;
     font-weight: 600;
   }
@@ -110,32 +96,71 @@ h2 {
   }
 
   .mat-form-field-appearance-outline {
-    .mat-form-field-outline-start, .mat-form-field-outline-gap, .mat-form-field-outline-end {
+    .mat-form-field-outline-start,
+    .mat-form-field-outline-gap,
+    .mat-form-field-outline-end {
       color: #696969;
     }
   }
 }
 
 .cce-tabbed-nav {
-  .mat-tab-label-content {
-    color: mat-color(map-get($colorado-care-exchange-theme, primary));
-    font-size: 1.25em;
-  }
-
-  .mat-tab-label {
-    opacity: .7;
-
-    &-active {
-      opacity: 1;
-    }
-  }
-
   .mat-tab-header-pagination-controls-enabled {
     .mat-tab-header-pagination {
       display: none;
     }
   }
 
+  &.is-white {
+    .mat-tab-label-content {
+      color: mat-color(map-get($colorado-care-exchange-theme, primary));
+      font-size: 1.25em;
+    }
+
+    .mat-tab-label {
+      opacity: 0.7;
+
+      &-active {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.is-blue {
+    .mat-tab-label {
+      background-color: #29b6f6;
+      color: #e0e0de;
+      opacity: 1;
+      font-weight: 100;
+    }
+
+    .mat-tab-group.mat-primary .mat-ink-bar,
+    .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+      background-color: #ffffff;
+    }
+
+    .mat-tab-label-active {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .mat-tab-labels {
+      background-color: #29b6f6;
+    }
+  }
+
+  &.is-hoisted {
+    position: relative;
+    bottom: 145px;
+
+    .mat-tab-header {
+      border-bottom: 0;
+    }
+
+    .mat-tab-header-pagination {
+      display: none;
+    }
+  }
 }
 
 .empty {
