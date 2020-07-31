@@ -1,0 +1,37 @@
+<div class="settings">
+  <div class="settings__header" fxLayout="row" fxLayoutAlign="space-between center">
+    <h2 class="app-blue">
+      Account Settings
+    </h2>
+    <mat-icon (click)="back()">highlight_off</mat-icon>
+  </div>
+  <mat-progress-bar mode="indeterminate" *ngIf="loading" fxFill></mat-progress-bar>
+
+  <div fxLayout="column" class="settings__toggles">
+    <div class="settings__toggle">
+      <mat-slide-toggle class="app-blue" color="primary" [checked]="email" (change)="toggleEmail($event)" [disabled]="loading">
+        Email
+      </mat-slide-toggle>
+    </div>
+
+    <div class="settings__toggle">
+      <mat-slide-toggle class="app-blue" color="primary" [checked]="shareAcross" (change)="toggleShareAcross($event)" [disabled]="loading">
+        Share with {{ isUser ? 'Organizations' : 'Individuals' }}
+      </mat-slide-toggle>
+    </div>
+
+    <div class="settings__toggle">
+      <mat-slide-toggle
+        class="app-blue"
+        color="primary"
+        [checked]="receiveAcross"
+        (change)="toggleReceiveFrom($event)"
+        [disabled]="loading"
+      >
+        Receive from {{ isUser ? 'Organizations' : 'Individuals' }}
+      </mat-slide-toggle>
+    </div>
+  </div>
+</div>
+
+<app-site-footer></app-site-footer>

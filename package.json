@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "generate": "graphql-codegen $GRAPHQL_API_URI $GRAPHQL_API_KEY"
+    "generate": "graphql-codegen $GRAPHQL_API_URI $GRAPHQL_API_KEY",
+    "generate:watch": "graphql-codegen --watch $GRAPHQL_API_URI $GRAPHQL_API_KEY"
   },
   "private": true,
   "dependencies": {

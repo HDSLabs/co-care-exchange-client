@@ -1,0 +1,10 @@
+mutation UpdateUserSettings($input: SaveUserInput!) {
+  saveUser(input: $input) {
+    user {
+      id
+      shareAcrossRoleBoundary
+      receiveAcrossRoleBoundary
+      sendEmailMatchNotifications
+    }
+  }
+}

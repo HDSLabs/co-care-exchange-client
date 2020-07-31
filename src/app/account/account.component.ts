@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DASHBOARD_ROUTE, INFO_ROUTE, PROMPT_ROUTE } from '../core/constants/routes';
+import { DASHBOARD_ROUTE, INFO_ROUTE, PROMPT_ROUTE, SETTINGS_ROUTE, RESOURCES_ROUTE, CONTRIBUTORS_ROUTE } from '../core/constants/routes';
 
 @Component({
   selector: 'app-account',
@@ -24,9 +24,12 @@ export class AccountComponent implements OnInit {
     this.router.navigate(['/', DASHBOARD_ROUTE]);
   }
   resource() {
-    this.router.navigate(['/resources']);
+    this.router.navigate(['/', RESOURCES_ROUTE]);
   }
   showContributors() {
-    this.router.navigate(['/contributors']);
+    this.router.navigate(['/', CONTRIBUTORS_ROUTE]);
+  }
+  settings() {
+    this.router.navigate(['/', SETTINGS_ROUTE]);
   }
 }

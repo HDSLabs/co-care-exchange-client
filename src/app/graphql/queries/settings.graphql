@@ -1,0 +1,8 @@
+query UserSettings($userId: ID!) {
+  user(userId: $userId) {
+    id
+    shareAcrossRoleBoundary
+    receiveAcrossRoleBoundary
+    sendEmailMatchNotifications
+  }
+}

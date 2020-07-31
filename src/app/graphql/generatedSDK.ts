@@ -1189,10 +1189,12 @@ export type User = {
   /** @deprecated Field no longer supported */
   pickupRadius: Scalars['Short'];
   postalCode?: Maybe<Scalars['String']>;
+  receiveAcrossRoleBoundary: Scalars['Boolean'];
   requestOrders?: Maybe<Array<Maybe<Order>>>;
   requestOrderSummaries?: Maybe<Array<Maybe<OrderSummary>>>;
   sendEmailMatchNotifications: Scalars['Boolean'];
   sendEmailMessageNotifications: Scalars['Boolean'];
+  shareAcrossRoleBoundary: Scalars['Boolean'];
   shareOrders?: Maybe<Array<Maybe<Order>>>;
   shareOrderSummaries?: Maybe<Array<Maybe<OrderSummary>>>;
   state?: Maybe<Scalars['String']>;
@@ -1454,10 +1456,14 @@ export type UserFilter = {
   postalCode_not_in?: Maybe<Array<Maybe<Scalars['String']>>>;
   postalCode_not_starts_with?: Maybe<Scalars['String']>;
   postalCode_starts_with?: Maybe<Scalars['String']>;
+  receiveAcrossRoleBoundary?: Maybe<Scalars['Boolean']>;
+  receiveAcrossRoleBoundary_not?: Maybe<Scalars['Boolean']>;
   sendEmailMatchNotifications?: Maybe<Scalars['Boolean']>;
   sendEmailMatchNotifications_not?: Maybe<Scalars['Boolean']>;
   sendEmailMessageNotifications?: Maybe<Scalars['Boolean']>;
   sendEmailMessageNotifications_not?: Maybe<Scalars['Boolean']>;
+  shareAcrossRoleBoundary?: Maybe<Scalars['Boolean']>;
+  shareAcrossRoleBoundary_not?: Maybe<Scalars['Boolean']>;
   state?: Maybe<Scalars['String']>;
   state_contains?: Maybe<Scalars['String']>;
   state_ends_with?: Maybe<Scalars['String']>;
@@ -1528,6 +1534,22 @@ export type CreateOrderNoteMutation = (
   & { createOrderNote?: Maybe<(
     { __typename?: 'CreateNotePayload' }
     & Pick<CreateNotePayload, 'clientMutationId'>
+  )> }
+);
+
+export type UpdateUserSettingsMutationVariables = {
+  input: SaveUserInput;
+};
+
+
+export type UpdateUserSettingsMutation = (
+  { __typename?: 'Mutation' }
+  & { saveUser?: Maybe<(
+    { __typename?: 'UserMutationPayload' }
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'shareAcrossRoleBoundary' | 'receiveAcrossRoleBoundary' | 'sendEmailMatchNotifications'>
+    )> }
   )> }
 );
 
@@ -1623,6 +1645,19 @@ export type NearbySharesQuery = (
   )> }
 );
 
+export type UserSettingsQueryVariables = {
+  userId: Scalars['ID'];
+};
+
+
+export type UserSettingsQuery = (
+  { __typename?: 'Query' }
+  & { user?: Maybe<(
+    { __typename?: 'User' }
+    & Pick<User, 'id' | 'shareAcrossRoleBoundary' | 'receiveAcrossRoleBoundary' | 'sendEmailMatchNotifications'>
+  )> }
+);
+
 export const ArchiveItemDocument = gql`
     mutation ArchiveItem($input: ArchiveItemInput!) {
   archiveItem(input: $input) {
@@ -1670,6 +1705,26 @@ export const CreateOrderNoteDocument = gql`
   })
   export class CreateOrderNoteGQL extends Apollo.Mutation<CreateOrderNoteMutation, CreateOrderNoteMutationVariables> {
     document = CreateOrderNoteDocument;
+    
+  }
+export const UpdateUserSettingsDocument = gql`
+    mutation UpdateUserSettings($input: SaveUserInput!) {
+  saveUser(input: $input) {
+    user {
+      id
+      shareAcrossRoleBoundary
+      receiveAcrossRoleBoundary
+      sendEmailMatchNotifications
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateUserSettingsGQL extends Apollo.Mutation<UpdateUserSettingsMutation, UpdateUserSettingsMutationVariables> {
+    document = UpdateUserSettingsDocument;
     
   }
 export const UpdateOrderDocument = gql`
@@ -1842,6 +1897,24 @@ export const NearbySharesDocument = gql`
     document = NearbySharesDocument;
     
   }
+export const UserSettingsDocument = gql`
+    query UserSettings($userId: ID!) {
+  user(userId: $userId) {
+    id
+    shareAcrossRoleBoundary
+    receiveAcrossRoleBoundary
+    sendEmailMatchNotifications
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UserSettingsGQL extends Apollo.Query<UserSettingsQuery, UserSettingsQueryVariables> {
+    document = UserSettingsDocument;
+    
+  }
 
   type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -1863,11 +1936,13 @@ export const NearbySharesDocument = gql`
       private archiveItemGql: ArchiveItemGQL,
       private createMatchGql: CreateMatchGQL,
       private createOrderNoteGql: CreateOrderNoteGQL,
+      private updateUserSettingsGql: UpdateUserSettingsGQL,
       private updateOrderGql: UpdateOrderGQL,
       private dashboardGql: DashboardGQL,
       private itemDetailsGql: ItemDetailsGQL,
       private nearbyRequestsGql: NearbyRequestsGQL,
-      private nearbySharesGql: NearbySharesGQL
+      private nearbySharesGql: NearbySharesGQL,
+      private userSettingsGql: UserSettingsGQL
     ) {}
       
     archiveItem(variables: ArchiveItemMutationVariables, options?: MutationOptionsAlone<ArchiveItemMutation, ArchiveItemMutationVariables>) {
@@ -1880,6 +1955,10 @@ export const NearbySharesDocument = gql`
     
     createOrderNote(variables: CreateOrderNoteMutationVariables, options?: MutationOptionsAlone<CreateOrderNoteMutation, CreateOrderNoteMutationVariables>) {
       return this.createOrderNoteGql.mutate(variables, options)
+    }
+    
+    updateUserSettings(variables: UpdateUserSettingsMutationVariables, options?: MutationOptionsAlone<UpdateUserSettingsMutation, UpdateUserSettingsMutationVariables>) {
+      return this.updateUserSettingsGql.mutate(variables, options)
     }
     
     updateOrder(variables: UpdateOrderMutationVariables, options?: MutationOptionsAlone<UpdateOrderMutation, UpdateOrderMutationVariables>) {
@@ -1916,5 +1995,13 @@ export const NearbySharesDocument = gql`
     
     nearbySharesWatch(variables: NearbySharesQueryVariables, options?: WatchQueryOptionsAlone<NearbySharesQueryVariables>) {
       return this.nearbySharesGql.watch(variables, options)
+    }
+    
+    userSettings(variables: UserSettingsQueryVariables, options?: QueryOptionsAlone<UserSettingsQueryVariables>) {
+      return this.userSettingsGql.fetch(variables, options)
+    }
+    
+    userSettingsWatch(variables: UserSettingsQueryVariables, options?: WatchQueryOptionsAlone<UserSettingsQueryVariables>) {
+      return this.userSettingsGql.watch(variables, options)
     }
   }

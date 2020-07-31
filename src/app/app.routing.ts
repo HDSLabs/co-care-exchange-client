@@ -15,7 +15,17 @@ import { ContributorsComponent } from './contributors/contributors.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { WelcomePageComponent } from './auth/components/welcome-page/welcome.component';
 import { LoggedInRedirectGuard } from './core/guards/logged-in-redirect.guard';
-import { DASHBOARD_ROUTE, INFO_ROUTE, PROMPT_ROUTE, SIGNIN_ROUTE, WELCOME_ROUTE } from './core/constants/routes';
+import { SettingsComponent } from './settings/settings.component';
+import {
+  DASHBOARD_ROUTE,
+  INFO_ROUTE,
+  PROMPT_ROUTE,
+  SIGNIN_ROUTE,
+  WELCOME_ROUTE,
+  RESOURCES_ROUTE,
+  CONTRIBUTORS_ROUTE,
+  SETTINGS_ROUTE,
+} from './core/constants/routes';
 
 export const appRoutes: Routes = [
   {
@@ -28,11 +38,11 @@ export const appRoutes: Routes = [
         canActivate: [LoggedInRedirectGuard],
       },
       {
-        path: 'resources',
+        path: RESOURCES_ROUTE,
         component: ResourcesComponent,
       },
       {
-        path: 'contributors',
+        path: CONTRIBUTORS_ROUTE,
         component: ContributorsComponent,
       },
       {
@@ -70,6 +80,11 @@ export const appRoutes: Routes = [
         path: INFO_ROUTE,
         component: InformationComponent,
         data: { allowNoProfile: true },
+        canActivate: [AuthGuard],
+      },
+      {
+        path: SETTINGS_ROUTE,
+        component: SettingsComponent,
         canActivate: [AuthGuard],
       },
       {

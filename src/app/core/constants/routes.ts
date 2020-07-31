@@ -5,3 +5,6 @@ export const DASHBOARD_ROUTE = 'dashboard';
 export const INFO_ROUTE = 'info';
 export const PROMPT_ROUTE = 'prompt';
 export const SIGNIN_ROUTE = 'signin';
+export const SETTINGS_ROUTE = 'settings';
+export const RESOURCES_ROUTE = 'resources';
+export const CONTRIBUTORS_ROUTE = 'contributors';

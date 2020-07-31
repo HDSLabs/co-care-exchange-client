@@ -25,6 +25,7 @@ import {
   MatListModule,
   MatRadioModule,
   MatCheckboxModule,
+  MatSlideToggleModule,
 } from '@angular/material';
 // import { MaterialFileInputModule } from 'ngx-material-file-input';
 //
@@ -57,6 +58,7 @@ import {
     MatListModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
   ],
   exports: [
     CommonModule,
@@ -85,6 +87,7 @@ import {
     MatListModule,
     MatRadioModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
   ],
 })
 export class CustomMaterialModule {}
