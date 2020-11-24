@@ -3,7 +3,7 @@
   <div *ngIf="vm$ | async as vm; else inprogress">
     <div fxLayout="row" fxLayoutAlign="space-between center">
       <div >
-        <h2>Requests</h2> 
+        <h2>Requests</h2>
       </div>
       <div>
         <mat-form-field *ngIf="vm.orgId" class="orgselectwidth">
@@ -19,7 +19,7 @@
     </div>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
-           
+
     </div>
     <div *ngIf="!vm.loading; else inprogress">
       <div *ngIf="vm.needs && vm.needs.length > 0; else noneeds">
@@ -37,7 +37,7 @@
                     <mat-label class="contentlabel">{{ request.name }}<br>
                       <span class="content-multiplier">x</span><span
                         class="contentlabel-detail">{{ formatItemDetails(request) }}</span></mat-label>
-                    <mat-label [className]="getStyle(request.status)" style="margin-left: auto;">
+                    <mat-label [className]="getStyle(request.status)" style="margin-left: auto; text-align: right;">
                       {{ request.statusDisplay }}
                     </mat-label>
                   </div>
