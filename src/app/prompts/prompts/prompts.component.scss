@@ -4,12 +4,8 @@
 mat-form-field {
   width: 100%;
 
-  .mat-form-field-infix {
-    border-width: 1px;
-  }
-
-  textarea {
-    height: 20px !important;
+  textarea  {
+    min-height: 24px;
   }
 }
 
